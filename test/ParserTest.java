@@ -1,6 +1,4 @@
-import org.junit.Before;
 import org.junit.Test;
-import java.util.regex.*;
 import static org.junit.Assert.*;
 
 /**
@@ -8,22 +6,29 @@ import static org.junit.Assert.*;
  */
 public class ParserTest {
     private String line;
-    @Before
-    public void setUp() throws Exception {
-        line = "IF1234 ; 1, 2 , 3 ;123";
+
+    @Test
+    public void testParseActivity() throws Exception {
+        line = "IF2110;7602;07.00;12.00;4;1,2,3,4,5";
+        Activity activity = Parser.parseActivity(line);
     }
 
     @Test
-    public void test_parse() throws Exception {
-        Matcher matcher = Parser.parse(line);
-        System.out.println(matcher.find());
-        System.out.println(matcher.group(0));
-        System.out.println(matcher.group(1));
-        System.out.println(matcher.group(2));
-        System.out.println(matcher.group(3));
-        System.out.println(matcher.group(4));
-        System.out.println(matcher.group(5));
-        System.out.println(matcher.group(6));
-        assertEquals(1,1);
+    public void testParseClassroom() throws Exception {
+        line = "Labdas2;10.00;14.00;2,4";
+        Classroom classroom = Parser.parseClassroom(line);
+    }
+
+    @Test
+    public void testParseDays() throws Exception {
+        line = "1,4,5";
+        int[] days = Parser.parseDays(line);
+    }
+
+    @Test
+    public void testParseHour() throws Exception {
+        line = "03.00";
+        int hour = Parser.parseHour(line);
+        assertEquals(hour,3);
     }
 }
