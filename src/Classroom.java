@@ -1,41 +1,31 @@
 import java.util.ArrayList;
 
 public class Classroom {
-	private String nama;
-	static int[][] waktu; // value 0 or 1
+	private String name;
+	private int openTime;
+	private int closedTime;
+	private ArrayList<Integer> day;
 
-	Classroom(String nama, int buka, int tutup, ArrayList<Integer> hari) {
-		this.nama = nama;
-		waktu = new int[6][24];
-
-		for (int i=0 ; i < 6 ; i++) {
-			if (isInDate(buka, hari)) {
-				for (int j=0 ; j < 24 ; j++) {
-					if ((j >= buka) && (j <= tutup)) {
-						waktu[i][j] = 1;
-					} else {
-						waktu[i][j] = 0;
-					}
-				} 
-			} else {
-				for (int j=0 ; j < 24 ; j++) {
-					waktu[i][j] = 0;
-				}
-			}
-		}
+	Classroom(String name, int openTime, int closedTime, ArrayList<Integer> day) {
+		this.name = name;
+		this.openTime = openTime;
+		this.closedTime = closedTime;
+		this.day = day;
 	}
 
-	private boolean isInDate(int date, ArrayList<Integer> arr) {
-		boolean ret = false;
-		int length = arr.size();
-		int i = 0;
-		while ((i<length) && (!ret)) {
-			if (date == arr.get(i)) {
-				ret = true;
-			} else {
-				i++;
-			}
-		}
-		return ret;
+	public String getName() {
+		return name;
+	}
+
+	public int getOpenTime() {
+		return openTime;
+	}
+
+	public int getClosedTime() {
+		return closedTime;
+	}
+
+	public ArrayList<Integer> getDay() {
+		return day;
 	}
 }

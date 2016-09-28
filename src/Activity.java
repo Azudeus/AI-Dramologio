@@ -1,27 +1,69 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Activity {
-	private String nama;
-	private int[] hari; //Minggu 0 Sabtu 6
-	private int mulai; 
-	private int selesai;
-	private int durasi;
-	private String ruang;
+	private String name;
+	private int[] day; //Minggu 0 Sabtu 6
+	private int lmtStart; 
+	private int lmtFinish;
+	private int duration;
+	private String room;
+	private int start;
 
-	Activity(String nama, ArrayList<Integer> hari, int mulai, int selesai, int durasi, String ruang) {
-		this.nama = nama;
-		this.hari = new int[6];
-		int length = hari.size();
+
+	Activity(String name, ArrayList<Integer> day, int lmtStart, int lmtFinish, int duration, String room) {
+		this.name = name;
+		this.day = new int[6];
+		int length = day.size();
 		for (int i=0;i<7;i++) {
-			this.hari[i]=0;
+			this.day[i]=0;
 		}
 		for (int i=0;i<length;i++) {
-			this.hari[hari.get(i)] =1;
+			this.day[day.get(i)] =1;
 		}
-		this.mulai = mulai;
-		this.selesai = selesai;
-		this.durasi = durasi;
-		this.ruang = ruang;
+		this.lmtStart = lmtStart;
+		this.lmtFinish = lmtFinish;
+		this.duration = duration;
+		this.room = room;
+		this.start = 0;
+	}
+
+	public setRandomStart() {
+		Random rand = new Random();
+		int ret = rand.nextInt(lmtFinish-lmtStart+1-duration) + lmtStart;
+		this.start = ret;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int[] getDay() {
+		return day;
+	}
+
+	public int getLmtStart() {
+		return lmtStart;
+	}
+
+	public int getLmtFinish() {
+		return lmtFinish;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public int setStart(int x) {
+		start = x;
 	}
 }
 
