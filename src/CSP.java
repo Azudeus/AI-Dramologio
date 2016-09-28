@@ -4,13 +4,15 @@ import java.util.Scanner;
 import java.io.*;
 
 public class CSP {
-	private ArrayList<Activity> arrAct;
-	private ArrayList<Classroom> arrClass;
+	protected ArrayList<Activity> arrAct;
+	protected ArrayList<Classroom> arrClass;
+	protected ArrayList<PairActivity> arrError;
 	private Scanner sc;
 
 	CSP() {
 		arrAct = new ArrayList<Activity>();
 		arrClass = new ArrayList<Classroom>();
+		arrError = new ArrayList<PairActivity>();
 		fileReader();
 	}
 
@@ -113,21 +115,26 @@ public class CSP {
 		}
 	}
 
-	public int checkViolation() {
+	public void checkViolation() {
+		arrError.clear();
 		int actLength = arrAct.size();
 		int actClass = arrClass.size();
-		int ret = 0;
 		for (int i=0; i<actLength ; i++) {
 			for(int j=i+1 ; j<actLength ; j++) {
 				if (arrAct.get(i).getTempRoom() == arrAct.get(j).getTempRoom()) {
 					if ((arrAct.get(i).getStart() > arrAct.get(j).getStart()) && ((arrAct.get(j).getStart()+arrAct.get(j).getDuration()) > arrAct.get(i).getStart())) {
-						ret++;
+						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
+						arrError.add(err);
 					} else if ((arrAct.get(j).getStart() > arrAct.get(i).getStart()) && ((arrAct.get(i).getStart()+arrAct.get(i).getDuration()) > arrAct.get(j).getStart())) {
-						ret++;
+						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
+						arrError.add(err);
 					} 
 				}
 			}
 		}
-		return ret;
+	}
+
+	public int countViolation() {
+		return arrError.size();
 	}
 }

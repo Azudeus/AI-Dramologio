@@ -8,6 +8,7 @@ public class Activity {
 	private int lmtFinish;
 	private int duration;
 	private String room;
+	private String tempRoom;
 	private int start;
 
 
@@ -28,10 +29,18 @@ public class Activity {
 		this.start = 0;
 	}
 
-	public setRandomStart() {
+	public void setRandomStart(int start, int finish) {
 		Random rand = new Random();
-		int ret = rand.nextInt(lmtFinish-lmtStart+1-duration) + lmtStart;
+		int ret = rand.nextInt(finish-start-duration+1) + lmtStart;
 		this.start = ret;
+	}
+
+	public void setStart(int x) {
+		start = x;
+	}
+
+	public void setTempRoom(String x) {
+		tempRoom = x;
 	}
 
 	public String getName() {
@@ -57,13 +66,15 @@ public class Activity {
 	public String getRoom() {
 		return room;
 	}
+	
+	public String getTempRoom() {
+		return tempRoom;
+	}
 
 	public int getStart() {
 		return start;
 	}
 
-	public int setStart(int x) {
-		start = x;
-	}
+
 }
 
