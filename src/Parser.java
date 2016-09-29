@@ -2,6 +2,7 @@
  * Created by njruntuwene on 9/22/16.
  */
 
+import java.util.ArrayList;
 import java.util.regex.*;
 
 public class Parser {
@@ -11,7 +12,7 @@ public class Parser {
         int startHour;
         int endHour;
         int duration;
-        int[] days;
+        ArrayList<Integer> days;
         Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
 
         Matcher matcher = pattern.matcher(line);
@@ -24,13 +25,14 @@ public class Parser {
             days = parseDays(matcher.group(11));
             return new Activity(name,days,startHour,endHour,duration,room);
         }
+        return null; // throw exception
     }
 
     public static Classroom parseClassroom(String line) {
         String name;
         int openHour;
         int closeHour;
-        int[] days;
+        ArrayList<Integer> days;
 
         Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
 
@@ -40,18 +42,18 @@ public class Parser {
             openHour = parseHour(matcher.group(3));
             closeHour = parseHour(matcher.group(5));
             days = parseDays(matcher.group(7));
-            return new Classroom(name,openHour,closeHour);
+            return new Classroom(name,openHour,closeHour,days);
         }
-        return null;
+        return null; // throw exception
     }
 
-    public static int[] parseDays(String line) {
-        int[] days;
-        Pattern pattern = Pattern.compile("(\\d*)(,*)");
+    public static ArrayList<Integer> parseDays(String line) {
+        ArrayList<Integer> days = new ArrayList<>(1);
+        Pattern pattern = Pattern.compile("(\\d+)(,*)");
 
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
-
+            days.add(Integer.parseInt(matcher.group(1)));
         }
         return days;
     }
@@ -63,6 +65,6 @@ public class Parser {
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(2));
         }
-        return -1;
+        return -1; // exception?
     }
 }
