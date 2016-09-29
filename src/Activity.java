@@ -14,13 +14,13 @@ public class Activity {
 
 	Activity(String name, ArrayList<Integer> day, int lmtStart, int lmtFinish, int duration, String room) {
 		this.name = name;
-		this.day = new int[6];
+		this.day = new int[7];
 		int length = day.size();
-		for (int i=0;i<7;i++) {
-			this.day[i]=0;
+		for (int i = 0; i < 7; i++) {
+			this.day[i] = 0;
 		}
-		for (int i=0;i<length;i++) {
-			this.day[day.get(i)] =1;
+		for (int i = 0; i < length; i++) {
+			this.day[day.get(i)] = 1;
 		}
 		this.lmtStart = lmtStart;
 		this.lmtFinish = lmtFinish;
