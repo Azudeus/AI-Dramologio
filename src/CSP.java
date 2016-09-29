@@ -3,11 +3,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
+
 public class CSP {
 	protected ArrayList<Activity> arrAct;
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
 	private Scanner sc;
+
+	public static final int NOT_FOUND = -999;
 
 	CSP() {
 		arrAct = new ArrayList<Activity>();
@@ -65,14 +68,58 @@ public class CSP {
 		return arrClass.get(indexClass);
 	}
 
+	private ArrayList<Integer> checkDay(Activity act, Classroom cls) {
+		boolean[] dayValid = new boolean[7];
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		for (int i=0; i<7 ; i++) {
+			dayValid[i] = act.getDay()[i] & cls.getDay()[i];
+			if (dayValid[i] == true) {
+				ret.add(i);
+			}
+		}
+		return ret;
+	}
+
+	private Integer randomDay(Activity act, Classroom cls) {
+		Random rand = new Random();
+		ArrayList<Integer> listDay = checkDay(act,cls);
+		if (listDay.size() == 0) {
+			int dayLength = listDay.size();
+			int indexDay = rand.nextInt(dayLength);	
+			return listDay.get(indexDay);
+		} else {
+			return NOT_FOUND;
+		}
+	}
+
 	public void setRandomActivity(Activity act) {
 		Classroom cls;
+		int tempDay;
 		int lmtStart=999;
 		int lmtFinish=-999;
 
 		if (act.getRoom() == "-") {
 			do{
 				cls = randomClass();
+				tempDay = randomDay(act,cls);
+				if(tempDay!=NOT_FOUND){
+					if (cls.getOpenTime() >= act.getLmtStart()) {
+						lmtStart = cls.getOpenTime();
+					} else {
+						lmtStart = act.getLmtStart();
+					}
+
+					if (cls.getClosedTime() < act.getLmtFinish()) {
+						lmtFinish = cls.getClosedTime();
+					} else {
+						lmtFinish = act.getLmtFinish();
+					}
+				}
+			}while(lmtFinish <= (lmtStart+act.getDuration()));
+		} else {
+			cls = findClassroom(act.getRoom());
+			tempDay = randomDay(act,cls);
+			if(tempDay!=NOT_FOUND){
 				if (cls.getOpenTime() >= act.getLmtStart()) {
 					lmtStart = cls.getOpenTime();
 				} else {
@@ -84,19 +131,6 @@ public class CSP {
 				} else {
 					lmtFinish = act.getLmtFinish();
 				}
-			}while(lmtFinish <= (lmtStart+act.getDuration()));
-		} else {
-			cls = findClassroom(act.getRoom());
-			if (cls.getOpenTime() >= act.getLmtStart()) {
-				lmtStart = cls.getOpenTime();
-			} else {
-				lmtStart = act.getLmtStart();
-			}
-
-			if (cls.getClosedTime() < act.getLmtFinish()) {
-				lmtFinish = cls.getClosedTime();
-			} else {
-				lmtFinish = act.getLmtFinish();
 			}
 			// EXCEPTION
 			if (lmtFinish <= (lmtStart + act.getDuration())) {
@@ -104,6 +138,7 @@ public class CSP {
 				System.exit(0);
 			}
 		}
+		act.setTempDay(tempDay);
 		act.setTempRoom(cls.getName());
 		act.setRandomStart(lmtStart,lmtFinish);
 	}
@@ -121,7 +156,7 @@ public class CSP {
 		int actClass = arrClass.size();
 		for (int i=0; i<actLength ; i++) {
 			for(int j=i+1 ; j<actLength ; j++) {
-				if (arrAct.get(i).getTempRoom() == arrAct.get(j).getTempRoom()) {
+				if ((arrAct.get(i).getTempRoom() == arrAct.get(j).getTempRoom()) && (arrAct.get(i)).getTempDay() == arrAct.get(j).getTempDay()) {
 					if ((arrAct.get(i).getStart() > arrAct.get(j).getStart()) && ((arrAct.get(j).getStart()+arrAct.get(j).getDuration()) > arrAct.get(i).getStart())) {
 						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
 						arrError.add(err);

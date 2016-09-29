@@ -4,13 +4,16 @@ public class Classroom {
 	private String name;
 	private int openTime;
 	private int closedTime;
-	private ArrayList<Integer> day;
+	private boolean[] day;
 
-	Classroom(String name, int openTime, int closedTime, ArrayList<Integer> day) {
+	Classroom(String name, int openTime, int closedTime, boolean[] day) {
 		this.name = name;
 		this.openTime = openTime;
 		this.closedTime = closedTime;
-		this.day = day;
+		this.day = new boolean[7];
+		for (int i=0; i < 7 ; i++) {
+			this.day[i] = day[i];
+		}
 	}
 
 	public String getName() {
@@ -25,7 +28,7 @@ public class Classroom {
 		return closedTime;
 	}
 
-	public ArrayList<Integer> getDay() {
+	public boolean[] getDay() {
 		return day;
 	}
 }

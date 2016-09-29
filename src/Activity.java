@@ -3,30 +3,30 @@ import java.util.Random;
 
 public class Activity {
 	private String name;
-	private int[] day; //Minggu 0 Sabtu 6
+	private boolean[] day; //Minggu 0 Sabtu 6
 	private int lmtStart; 
 	private int lmtFinish;
 	private int duration;
 	private String room;
 	private String tempRoom;
 	private int start;
+	private int tempDay;
 
 
-	Activity(String name, ArrayList<Integer> day, int lmtStart, int lmtFinish, int duration, String room) {
+
+	Activity(String name, boolean[] day, int lmtStart, int lmtFinish, int duration, String room) {
 		this.name = name;
-		this.day = new int[7];
-		int length = day.size();
+		this.day = new boolean[7];
 		for (int i = 0; i < 7; i++) {
-			this.day[i] = 0;
-		}
-		for (int i = 0; i < length; i++) {
-			this.day[day.get(i)] = 1;
+			this.day[i] = day[i];
 		}
 		this.lmtStart = lmtStart;
 		this.lmtFinish = lmtFinish;
 		this.duration = duration;
 		this.room = room;
 		this.start = 0;
+		this.tempDay = 0;
+		this.tempRoom = "";
 	}
 
 	public void setRandomStart(int start, int finish) {
@@ -43,11 +43,15 @@ public class Activity {
 		tempRoom = x;
 	}
 
+	public void setTempDay(int x) {
+		tempDay = x;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	public int[] getDay() {
+	public boolean[] getDay() {
 		return day;
 	}
 
@@ -73,6 +77,10 @@ public class Activity {
 
 	public int getStart() {
 		return start;
+	}
+
+	public int getTempDay() {
+		return tempDay;
 	}
 
 
