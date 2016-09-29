@@ -46,14 +46,36 @@ public class Hillclimbing extends CSP{
 		return ret;
 	}
 
+	public void setSaveState(Activity act,String tr,int td, int ts) {
+		act.setTempRoom(tr);
+		act.setTempDay(td);
+		act.setStart(ts);
+	}
+
 	public void run() {
 		setRandomAllActivity();
 		checkViolation();
 		violation = countViolation();
-
+		int steps = 0;
+		Activity saveState;
+		String tempRoom;
+		int tempDay;
+		int tempStart;
+		while ((violation!=0) && (steps < 3000)) {
+			saveState = selectStep();
+			tempRoom = saveState.getTempRoom();
+			tempDay = saveState.getTempDay();
+			tempStart = saveState.getStart();
+			setRandomActivity(saveState);
+			checkViolation();
+			if (countViolation() < violation) {
+				violation = countViolation();
+			} else {
+				setSaveState(saveState,tempRoom,tempDay,tempStart);
+			}
+			steps++;
+		}
 	}
-
-
 
     public static void main(String[] args) {
         // TODO code application logic here
