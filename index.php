@@ -2,22 +2,14 @@
 <html>
 	<head>
 		<title> Oriental </title>
+		<!-- frontend -->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<style>
-			table, th, td {
-			    border: 1px solid black;
-			    border-collapse: collapse;
-			}
-			th, td {
-			    padding: 5px;
-			    text-align: center;
-			}
-		</style>
+		<style> table,th,td,tr {border : 1px solid black; text-align: center}</style>
 	</head>
-	
+
+<!-- Header page -->	
 <?php
 	require 'header.php';
 	require_once 'header.php';
@@ -25,7 +17,42 @@
 	
 	<body id="top">
 		
-		<!-- Header -->
+		<!-- Fungsi -->
+		<?php
+			function createTable($arrayOfAct) {
+				//buat tabel per-hari
+				$arrayOfDay = array("Senin","Selasa","Rabu","Kamis","Jumat");
+				echo "<table style='width:100%'>";
+				echo "<caption> Jadwal Mata Kuliah dan Ruangan</caption>";
+				/*header tabel*/
+				echo "<tr>";
+				echo "<th>Jam\Hari</th>";
+				for ($i = 0; $i<5; $i++){
+					echo "<th>".$arrayOfDay[$i]."</th>";
+				}
+				echo "</tr>";
+
+				/*isi per baris*/
+				for ($j = 7; $j<19; $j++){
+					echo "<tr>";
+					echo "<th>".$j; echo ":00 - "; echo $j+1; echo ":00 </th>";
+					for ($k = 1; $k<6; $k++){
+						echo "<td>";
+						for ($i=0; $i < count($arrayOfAct); $i++){
+							$tLastStart = $arrayOfAct[$i][2] + $arrayOfAct[$i][3] - 1 ;
+							if ($arrayOfAct[$i][1]==$k and $j>=$arrayOfAct[$i][2] and $j<=$tLastStart){
+								echo $arrayOfAct[$i][0]." - ".$arrayOfAct[$i][4]."<br>";
+							}
+						}
+						echo "</td>";
+					}
+					echo "</tr>";
+				}
+				echo "</table>";
+			}
+		?>
+
+		<!-- Deskripsi kelompok : pinggir -->
 			<header id="header">
 				<div class="inner">
 					<a href="#" class="image avatar"><img src="images/avatar1.jpg" alt="" /></a>
@@ -38,6 +65,8 @@
 		
 		<!-- Main -->
 			<div id="main">
+
+				<!-- button pilihan algoritma -->
 				<div>
 				<form action="index.php" method="post" >
 					<input type="submit" name="genetic" value="Genetic" style="margin-left: 120px"/>
@@ -47,6 +76,7 @@
 				</div>
 				<br><br>
 				
+				<!-- input array berdasarkan lagoritma di java -->
 				<?php
 					//pilihan algoritma = genetic algorithm
 					if(isset($_POST["genetic"])){
@@ -59,38 +89,23 @@
 							for ($j=0; $j < 5; $j++){			
 								//echo $arrayOfAct[$i][$j]. " ";
 							}
-							echo "<br>";
+							//echo "<br>";
 						}
 
-						//buat tabel per-hari
-						$arrayOfDay = array("Senin","Selasa","Rabu","Kamis","Jumat");
-						echo "<table style='width:100%'>";
-						echo "<caption> Jadwal Mata Kuliah dan Ruangan</caption>";
-						/*header tabel*/
-						echo "<tr>";
-						echo "<th>Jam\Hari</th>";
-						for ($i = 0; $i<5; $i++){
-							echo "<th>".$arrayOfDay[$i]."</th>";
-						}
-						echo "</tr>";
+						createTable($arrayOfAct);
 
-						/*isi per baris*/
-						for ($j = 7; $j<19; $j++){
-							echo "<tr>";
-							echo "<th>".$j; echo ":00 - "; echo $j+1; echo ":00 </th>";
-							for ($k = 1; $k<6; $k++){
-								echo "<td>";
-								for ($i=0; $i < count($arrayOfAct); $i++){
-									$tLastStart = $arrayOfAct[$i][2] + $arrayOfAct[$i][3] - 1 ;
-									if ($arrayOfAct[$i][1]==$k and $j>=$arrayOfAct[$i][2] and $j<=$tLastStart){
-										echo $arrayOfAct[$i][0]." - ".$arrayOfAct[$i][4]."<br>";
-									}
-								}
-								echo "</td>";
-							}
-							echo "</tr>";
+						/*
+						ini gw coba buat button supaya pindah
+						echo "<form action='index.php' method='post' >";
+						echo "<input type='submit' name='move' value='Move' style='margin-left: 120px'/></form>";
+
+						somehow doesnt work
+						if(isset($_POST["move"])){
+							createTable($arrayOfAct);
+							echo "<input type='submit' name='move' value='Bukan Move' style='margin-left: 120px'/>";
 						}
-						echo "</table>";
+						*/
+						
 					}
 
 					//pilihan algoritma = hill climbing
@@ -102,10 +117,12 @@
 						}
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							for ($j=0; $j < 5; $j++){			
-								echo $arrayOfAct[$i][$j]. " ";
+								//echo $arrayOfAct[$i][$j]. " ";
 							}
-							echo "<br>";
+							//echo "<br>";
 						}
+
+						createTable($arrayOfAct);
 					}
 
 					//pilihan algoritma = simulated annealing
@@ -117,15 +134,24 @@
 						}
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							for ($j=0; $j < 5; $j++){			
-								echo $arrayOfAct[$i][$j]. " ";
+								//echo $arrayOfAct[$i][$j]. " ";
 							}
-							echo "<br>";
+							//echo "<br>";
 						}
+
+						createTable($arrayOfAct);
 					}
+
+					/*kalau gw taro luar if arrayOfAct nya belom ke assign
+					if(isset($_POST["move"])){
+							createTable($arrayOfAct);
+							echo "<input type='submit' name='move' value='Bukan Move' style='margin-left: 120px'/>";
+						}
+					*/
 				?>
 			</div>
 			
-		<!-- Footer -->
+		<!-- Footer Pinggir -->
 			<footer id="footer">
 				<div class="inner">
 					<ul class="copyright">
@@ -139,7 +165,6 @@
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 	</body>
 
