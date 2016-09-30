@@ -1,3 +1,6 @@
+/*
+	Simple drag and drop
+*/
 $(document).ready(function(){
 		$('.event').on("dragstart", function (event) {
 			  var dt = event.originalEvent.dataTransfer;

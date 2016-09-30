@@ -44,6 +44,7 @@
 							$tLastStart = $arrayOfAct[$i][2] + $arrayOfAct[$i][3] - 1 ;
 							if ($arrayOfAct[$i][1]==$k and $j>=$arrayOfAct[$i][2] and $j<=$tLastStart){
 								$dummy1++ ;
+								//untuk drag and drop (span)
 								if ($dummy1==1){
 									echo "<span class='event' id='".$j.$k."' draggable='true'>";
 									$dummy2++;
@@ -52,7 +53,7 @@
 							}
 						}
 						if ($dummy2==1){
-							echo "</span>";
+							echo "</span>" ;
 						}
 						echo "</td>";
 					}
