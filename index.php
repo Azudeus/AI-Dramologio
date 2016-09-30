@@ -22,7 +22,7 @@
 			function createTable($arrayOfAct) {
 				//buat tabel per-hari
 				$arrayOfDay = array("Senin","Selasa","Rabu","Kamis","Jumat");
-				echo "<table style='width:100%'>";
+				echo "<table id='#our_table' border='1' style='width:100%'>";
 				echo "<caption> Jadwal Mata Kuliah dan Ruangan</caption>";
 				/*header tabel*/
 				echo "<tr>";
@@ -38,11 +38,21 @@
 					echo "<th>".$j; echo ":00 - "; echo $j+1; echo ":00 </th>";
 					for ($k = 1; $k<6; $k++){
 						echo "<td>";
+						$dummy1 = 0 ;
+						$dummy2 = 0 ;
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$tLastStart = $arrayOfAct[$i][2] + $arrayOfAct[$i][3] - 1 ;
 							if ($arrayOfAct[$i][1]==$k and $j>=$arrayOfAct[$i][2] and $j<=$tLastStart){
+								$dummy1++ ;
+								if ($dummy1==1){
+									echo "<span class='event' id='".$j.$k."' draggable='true'>";
+									$dummy2++;
+								}
 								echo $arrayOfAct[$i][0]." - ".$arrayOfAct[$i][4]."<br>";
 							}
+						}
+						if ($dummy2==1){
+							echo "</span>";
 						}
 						echo "</td>";
 					}
@@ -166,6 +176,7 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/dragndrop.js"></script>
 	</body>
 
 </html>
