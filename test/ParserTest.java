@@ -1,12 +1,10 @@
+/**
+ * Created by Nathan on 9/22/16.
+ */
+
 import org.junit.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
-/**
- * Created by njruntuwene on 9/22/16.
- */
 public class ParserTest {
     private String line;
 
@@ -33,10 +31,12 @@ public class ParserTest {
     @Test
     public void testParseDays() throws Exception {
         line = "1,4,5";
-        ArrayList<Integer> days = Parser.parseDays(line);
-        assertEquals(days.get(0),new Integer(1));
-        assertEquals(days.get(1),new Integer(4));
-        assertEquals(days.get(2),new Integer(5));
+        boolean[] days = Parser.parseDays(line);
+        assertTrue(days[1]);
+        assertFalse(days[2]);
+        assertFalse(days[3]);
+        assertTrue(days[4]);
+        assertTrue(days[5]);
     }
 
     @Test
