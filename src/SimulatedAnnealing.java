@@ -93,7 +93,10 @@ public class SimulatedAnnealing extends CSP{
 			}
 			temperature = temperature * r;
 			steps++;
+			//System.out.println ("Violation" + countViolation());
 		}
+		printAllActivity();
+		System.out.println("Program succesfully run, VIOLATION LAST = "+ countViolation());	
 	}
 
     public static void main(String[] args) {
