@@ -163,6 +163,7 @@ public class CSP {
 		int actLength = arrAct.size();
 		for (int i=0 ; i<actLength ; i++) {
 			setRandomActivity(arrAct.get(i));
+			System.out.println("Succesfully randomed 1 activity");
 		}
 	}
 
