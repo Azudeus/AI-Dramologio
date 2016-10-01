@@ -5,7 +5,7 @@
 import java.util.regex.*;
 
 public class Parser {
-    public static Activity parseActivity(String line) {
+    public static Activity parseActivity(String line) throws Exception{
         String name;
         String room;
         int startHour;
@@ -24,10 +24,10 @@ public class Parser {
             days = parseDays(matcher.group(11));
             return new Activity(name,days,startHour,endHour,duration,room);
         }
-        return null; // throw exception
+        throw new Exception("Pattern not found");
     }
 
-    public static Classroom parseClassroom(String line) {
+    public static Classroom parseClassroom(String line) throws Exception {
         String name;
         int openHour;
         int closeHour;
@@ -43,7 +43,7 @@ public class Parser {
             days = parseDays(matcher.group(7));
             return new Classroom(name,openHour,closeHour,days);
         }
-        return null; // throw exception
+        throw new Exception("Pattern not found");
     }
 
     public static boolean[] parseDays(String line) {
@@ -57,13 +57,13 @@ public class Parser {
         return days;
     }
 
-    public static int parseHour(String line) {
+    public static int parseHour(String line) throws Exception {
         Pattern pattern = Pattern.compile("(0*)(\\d*)(.*)");
 
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(2));
         }
-        return -1; // exception?
+        throw new Exception("Pattern not found");
     }
 }
