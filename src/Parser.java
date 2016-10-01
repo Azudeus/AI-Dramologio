@@ -2,7 +2,6 @@
  * Created by njruntuwene on 9/22/16.
  */
 
-import java.util.ArrayList;
 import java.util.regex.*;
 
 public class Parser {
