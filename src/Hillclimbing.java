@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
+
 public class Hillclimbing extends CSP{
 	private int violation;
 
-	Hillclimbing() {
-
+	Hillclimbing(ArrayList<Activity> act, ArrayList<Classroom> cls){
+		super(act,cls);
 	}
 
 	public Activity selectStep() {
@@ -76,8 +79,12 @@ public class Hillclimbing extends CSP{
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new Hillclimbing().run();
+  		FileReader fileReader = new FileReader();
+  		ArrayList<Classroom> classrooms = fileReader.parseArrayClassroom();
+  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
+        new Hillclimbing(activities,classrooms).run();
     }
 
 
 }
+
