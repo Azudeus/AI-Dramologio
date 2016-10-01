@@ -5,14 +5,14 @@
 import java.util.regex.*;
 
 public class Parser {
-    public static Activity parseActivity(String line) {
+    public static Activity parseActivity(String line) throws Exception{
         String name;
         String room;
         int startHour;
         int endHour;
         int duration;
         boolean[] days;
-        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
+        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*)");
 
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
@@ -24,16 +24,16 @@ public class Parser {
             days = parseDays(matcher.group(11));
             return new Activity(name,days,startHour,endHour,duration,room);
         }
-        return null; // throw exception
+        throw new Exception("Pattern not found");
     }
 
-    public static Classroom parseClassroom(String line) {
+    public static Classroom parseClassroom(String line) throws Exception {
         String name;
         int openHour;
         int closeHour;
         boolean[] days;
 
-        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
+        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*)");
 
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
@@ -43,7 +43,7 @@ public class Parser {
             days = parseDays(matcher.group(7));
             return new Classroom(name,openHour,closeHour,days);
         }
-        return null; // throw exception
+        throw new Exception("Pattern not found");
     }
 
     public static boolean[] parseDays(String line) {
@@ -52,18 +52,18 @@ public class Parser {
 
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
-            days[Integer.parseInt(matcher.group(1))] = true;
+            days[Integer.parseInt(matcher.group(1)) % 7] = true;
         }
         return days;
     }
 
-    public static int parseHour(String line) {
+    public static int parseHour(String line) throws Exception {
         Pattern pattern = Pattern.compile("(0*)(\\d*)(.*)");
 
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(2));
         }
-        return -1; // exception?
+        throw new Exception("Pattern not found");
     }
 }
