@@ -103,16 +103,17 @@ public class CSP {
 		ArrayList<Integer> listDay = checkDay(act,cls);
 		//TEST XX05----------------------------------------------------
 		System.out.println(act.getName());
-		System.out.println(act.getDay()[6]);
+		System.out.println(act.getDay()[3]);
 		System.out.println(cls.getName());
 		System.out.println(listDay.size());
 		System.out.println("Succesfully checkday");
 		if (listDay.size() != 0) {
+			System.out.println("Succesfully entering found day cases");
 			int dayLength = listDay.size();
 			int indexDay = rand.nextInt(dayLength);	
 			return listDay.get(indexDay);
 		} else {
-			System.out.println("Succesfully entering not found day cases");
+			System.out.println("Succesfully entering NOT found day cases");
 			return NOT_FOUND;
 		}
 	}
@@ -150,7 +151,9 @@ public class CSP {
 			System.out.println("Succesfully finding classroom");
 			tempDay = randomDay(act,cls);
 			System.out.println("Succesfully randoming day");
+			System.out.println(tempDay);
 			if(tempDay!=NOT_FOUND){
+				System.out.println("Succesfully entered comparing time");
 				if (cls.getOpenTime() >= act.getLmtStart()) {
 					lmtStart = cls.getOpenTime();
 				} else {
@@ -163,8 +166,11 @@ public class CSP {
 					lmtFinish = act.getLmtFinish();
 				}
 			}
+			System.out.println(lmtStart);
+			System.out.println(lmtFinish);
+			System.out.println(act.getDuration());
 			// EXCEPTION
-			if (lmtFinish <= (lmtStart + act.getDuration())) {
+			if (lmtFinish < (lmtStart + act.getDuration())) {
 				System.out.println("Activity Can't fit to the class, Program Exiting");
 				System.exit(0);
 			}
