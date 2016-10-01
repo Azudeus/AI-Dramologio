@@ -17,6 +17,7 @@ public class CSP {
 		arrClass = new ArrayList<Classroom>();
 		arrError = new ArrayList<PairActivity>();
 		fileReader();
+		parser();
 	}
 
 	private void fileReader() {
@@ -171,5 +172,16 @@ public class CSP {
 
 	public int countViolation() {
 		return arrError.size();
+	}
+
+	public void printAllActivity() {
+		int length = arrAct.size();
+		for (int i=0; i<length; i++) {
+			System.out.print(arrAct.get(i).getName() + "-");
+			System.out.print(arrAct.get(i).getStart() + "-");
+			System.out.print(arrAct.get(i).getDuration() + "-");
+			System.out.println(arrAct.get(i).getTempDay() + "-");
+			System.out.println(arrAct.get(i).getTempRoom());
+		}
 	}
 }

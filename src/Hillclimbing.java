@@ -75,6 +75,7 @@ public class Hillclimbing extends CSP{
 			}
 			steps++;
 		}
+		printAllActivity();
 	}
 
     public static void main(String[] args) {
