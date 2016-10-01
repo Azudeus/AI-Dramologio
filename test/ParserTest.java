@@ -37,6 +37,8 @@ public class ParserTest {
         assertFalse(days[3]);
         assertTrue(days[4]);
         assertTrue(days[5]);
+        assertFalse(days[6]);
+        assertFalse(days[0]);
     }
 
     @Test
