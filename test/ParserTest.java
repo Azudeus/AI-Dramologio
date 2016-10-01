@@ -1,12 +1,10 @@
+/**
+ * Created by Nathan on 9/22/16.
+ */
+
 import org.junit.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
-/**
- * Created by njruntuwene on 9/22/16.
- */
 public class ParserTest {
     private String line;
 
