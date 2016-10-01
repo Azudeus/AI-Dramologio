@@ -1,8 +1,3 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.*;
-
-
 public class Hillclimbing extends CSP{
 	private int violation;
 
@@ -14,32 +9,32 @@ public class Hillclimbing extends CSP{
 		int errLength = arrError.size();
 		Activity ret = arrError.get(0).getFirst();
 		int mostFreq = 0;
-		int occurence;
+		int occurrence;
 		for (int i=0 ; i<errLength ; i++) {			
-			occurence = 0;
+			occurrence = 0;
 			for (int j=0 ; j<errLength ; j++) {
 				if (arrError.get(i).getFirst() == arrError.get(j).getFirst()) {
-					occurence++;
+					occurrence++;
 				} else if (arrError.get(i).getFirst() == arrError.get(j).getSecond()) {
-					occurence++;
+					occurrence++;
 				}
 			}
-			if (occurence > mostFreq) {
-				mostFreq = occurence;
+			if (occurrence > mostFreq) {
+				mostFreq = occurrence;
 				ret = arrError.get(i).getFirst();
 			}
 		}
 		for (int i=0 ; i<errLength ; i++) {			
-			occurence = 0;
+			occurrence = 0;
 			for (int j=0 ; j<errLength ; j++) {
 				if (arrError.get(i).getSecond() == arrError.get(j).getFirst()) {
-					occurence++;
+					occurrence++;
 				} else if (arrError.get(i).getSecond() == arrError.get(j).getSecond()) {
-					occurence++;
+					occurrence++;
 				}
 			}
-			if (occurence > mostFreq) {
-				mostFreq = occurence;
+			if (occurrence > mostFreq) {
+				mostFreq = occurrence;
 				ret = arrError.get(i).getSecond();
 			}
 		}
