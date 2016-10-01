@@ -15,8 +15,16 @@ public class ParserTest {
         assertEquals(activity.getName(),"IF2110");
         assertEquals(activity.getRoom(),"7602");
         assertEquals(activity.getLmtStart(),7);
-        assertEquals(activity.getLmtFinish(),12);
+        assertEquals(activity.getLmtFinish(), 12);
         assertEquals(activity.getDuration(),4);
+        boolean[] days = activity.getDay();
+        assertTrue(days[1]);
+        assertTrue(days[2]);
+        assertTrue(days[3]);
+        assertTrue(days[4]);
+        assertTrue(days[5]);
+        assertFalse(days[6]);
+        assertFalse(days[0]);
     }
 
     @Test
@@ -26,11 +34,19 @@ public class ParserTest {
         assertEquals(classroom.getName(),"Labdas2");
         assertEquals(classroom.getOpenTime(),10);
         assertEquals(classroom.getClosedTime(),14);
+        boolean[] days = classroom.getDay();
+        assertFalse(days[1]);
+        assertTrue(days[2]);
+        assertFalse(days[3]);
+        assertTrue(days[4]);
+        assertFalse(days[5]);
+        assertFalse(days[6]);
+        assertFalse(days[0]);
     }
 
     @Test
     public void testParseDays() throws Exception {
-        line = "1,4,5";
+        line = "1,4,5,7";
         boolean[] days = Parser.parseDays(line);
         assertTrue(days[1]);
         assertFalse(days[2]);
@@ -38,7 +54,7 @@ public class ParserTest {
         assertTrue(days[4]);
         assertTrue(days[5]);
         assertFalse(days[6]);
-        assertFalse(days[0]);
+        assertTrue(days[0]);
     }
 
     @Test

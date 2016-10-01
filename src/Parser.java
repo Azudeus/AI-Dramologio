@@ -12,7 +12,7 @@ public class Parser {
         int endHour;
         int duration;
         boolean[] days;
-        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
+        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*)");
 
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
@@ -33,7 +33,7 @@ public class Parser {
         int closeHour;
         boolean[] days;
 
-        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
+        Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*)");
 
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
@@ -52,7 +52,7 @@ public class Parser {
 
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
-            days[Integer.parseInt(matcher.group(1))] = true;
+            days[Integer.parseInt(matcher.group(1)) % 7] = true;
         }
         return days;
     }
