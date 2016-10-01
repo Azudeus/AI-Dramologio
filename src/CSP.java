@@ -22,12 +22,12 @@ public class CSP {
 
 		//Test XX01-----------------------------------------------
 		System.out.println(arrAct.size());
-		for (int i=0 ; i<arrAct.size();i++) {
-			System.out.println(arrAct.get(i).getName());
+		for (Activity activity : arrAct) {
+			System.out.println(activity.getName());
 		}
 		System.out.println(arrClass.size());
-		for(int i=0 ; i<arrClass.size(); i++) {
-			System.out.println(arrClass.get(i).getName());
+		for (Classroom classroom : arrClass) {
+			System.out.println(classroom.getName());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class CSP {
 		try{
             sc = new Scanner(new File("test/input.txt"));
         } catch (FileNotFoundException e){
-            System.out.println("File tidak ada");
+            System.out.println("File not found");
             System.exit(0);
         } 
 	}
@@ -47,9 +47,9 @@ public class CSP {
 			line = sc.nextLine();
 		}
 
-		while ((sc.hasNextLine()) && !Objects.equals("Ruangan", (line != null) ? line.trim() : null)) {
+		while ((sc.hasNextLine()) && !Objects.equals("Jadwal", (line != null) ? line.trim() : null)) {
 			try {
-				arrAct.add(Parser.parseActivity(line));
+				arrClass.add(Parser.parseClassroom(line));
 			} catch (Exception e) {
 
 			}
@@ -59,7 +59,7 @@ public class CSP {
 		while (sc.hasNextLine()) {
 			line = sc.nextLine();
 			try {
-				arrClass.add(Parser.parseClassroom(line));
+				arrAct.add(Parser.parseActivity(line));
 			} catch (Exception e) {
 
 			}
@@ -79,7 +79,6 @@ public class CSP {
 			}
 		}
 		return arrClass.get(i);
-
 	}
 
 
@@ -110,14 +109,14 @@ public class CSP {
 		System.out.println(act.getDay()[3]);
 		System.out.println(cls.getName());
 		System.out.println(listDay.size());
-		System.out.println("Succesfully checkday");
+		System.out.println("Successfully checkday");
 		if (listDay.size() != 0) {
-			System.out.println("Succesfully entering found day cases");
+			System.out.println("Successfully entering found day cases");
 			int dayLength = listDay.size();
 			int indexDay = rand.nextInt(dayLength);	
 			return listDay.get(indexDay);
 		} else {
-			System.out.println("Succesfully entering NOT found day cases");
+			System.out.println("Successfully entering NOT found day cases");
 			return NOT_FOUND;
 		}
 	}
@@ -128,7 +127,7 @@ public class CSP {
 		int lmtStart=999;
 		int lmtFinish=-999;
 
-		if (Objects.equals(act.getRoom(), new String("-"))) {
+		if (Objects.equals(act.getRoom(), "-")) {
 			//Test XX03-----------------------------------------------------
 			System.out.println("Entering case room -");
 			do{
@@ -152,12 +151,12 @@ public class CSP {
 			System.out.println("Entering case room listed");
 			cls = findClassroom(act.getRoom());
 			//TEST XX04---------------------------------------------------------
-			System.out.println("Succesfully finding classroom");
+			System.out.println("Successfully finding classroom");
 			tempDay = randomDay(act,cls);
-			System.out.println("Succesfully randoming day");
+			System.out.println("Successfully randomising day");
 			System.out.println(tempDay);
 			if(tempDay!=NOT_FOUND){
-				System.out.println("Succesfully entered comparing time");
+				System.out.println("Successfully entered comparing time");
 				if (cls.getOpenTime() >= act.getLmtStart()) {
 					lmtStart = cls.getOpenTime();
 				} else {
@@ -187,17 +186,15 @@ public class CSP {
 	public void setRandomAllActivity() {
 		//Test XX02---------------------------------------------------------
 		System.out.println("Entering set random all activity");
-		int actLength = arrAct.size();
-		for (int i=0 ; i<actLength ; i++) {
-			setRandomActivity(arrAct.get(i));
-			System.out.println("Succesfully randomed 1 activity");
+		for (Activity activity : arrAct) {
+			setRandomActivity(activity);
+			System.out.println("Successfully randomised 1 activity");
 		}
 	}
 
 	public void checkViolation() {
 		arrError.clear();
 		int actLength = arrAct.size();
-		int actClass = arrClass.size();
 		for (int i=0; i<actLength ; i++) {
 			for(int j=i+1 ; j<actLength ; j++) {
 				if ((arrAct.get(i).getTempRoom() == arrAct.get(j).getTempRoom()) && (arrAct.get(i)).getTempDay() == arrAct.get(j).getTempDay()) {
@@ -218,13 +215,12 @@ public class CSP {
 	}
 
 	public void printAllActivity() {
-		int length = arrAct.size();
-		for (int i=0; i<length; i++) {
-			System.out.print(arrAct.get(i).getName() + " ");
-			System.out.print(arrAct.get(i).getTempDay() + " ");
-			System.out.print(arrAct.get(i).getStart() + " ");
-			System.out.print(arrAct.get(i).getDuration() + " ");
-			System.out.println(arrAct.get(i).getTempRoom());
+		for (Activity activity : arrAct) {
+			System.out.print(activity.getName() + " ");
+			System.out.print(activity.getTempDay() + " ");
+			System.out.print(activity.getStart() + " ");
+			System.out.print(activity.getDuration() + " ");
+			System.out.println(activity.getTempRoom());
 		}
 	}
 }
