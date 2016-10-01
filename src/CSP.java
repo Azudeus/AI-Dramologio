@@ -33,7 +33,7 @@ public class CSP {
 
 	private void fileReader() {
 		try{
-            sc = new Scanner(new File("test/input.txt"));
+            sc = new Scanner(new File("test/Testcase.txt"));
         } catch (FileNotFoundException e){
             System.out.println("File not found");
             System.exit(0);
