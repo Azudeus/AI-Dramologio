@@ -12,7 +12,7 @@ public class Parser {
         int startHour;
         int endHour;
         int duration;
-        ArrayList<Integer> days;
+        boolean[] days;
         Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
 
         Matcher matcher = pattern.matcher(line);
@@ -32,7 +32,7 @@ public class Parser {
         String name;
         int openHour;
         int closeHour;
-        ArrayList<Integer> days;
+        boolean[] days;
 
         Pattern pattern = Pattern.compile("(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)(\\s*[;]\\s*)(.*?)");
 
@@ -47,13 +47,13 @@ public class Parser {
         return null; // throw exception
     }
 
-    public static ArrayList<Integer> parseDays(String line) {
-        ArrayList<Integer> days = new ArrayList<>(1);
+    public static boolean[] parseDays(String line) {
+        boolean[] days = new boolean[7];
         Pattern pattern = Pattern.compile("(\\d+)(,*)");
 
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
-            days.add(Integer.parseInt(matcher.group(1)));
+            days[Integer.parseInt(matcher.group(1))] = true;
         }
         return days;
     }
