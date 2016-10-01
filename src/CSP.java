@@ -19,6 +19,16 @@ public class CSP {
 		arrError = new ArrayList<PairActivity>();
 		fileReader();
 		parser();
+
+		//Test XX01-----------------------------------------------
+		System.out.println(arrAct.size());
+		for (int i=0 ; i<arrAct.size();i++) {
+			System.out.println(arrAct.get(i).getName());
+		}
+		System.out.println(arrClass.size());
+		for(int i=0 ; i<arrClass.size(); i++) {
+			System.out.println(arrClass.get(i).getName());
+		}
 	}
 
 	private void fileReader() {
@@ -34,11 +44,12 @@ public class CSP {
 		String line = null;
 		if (sc.hasNextLine()) {
 			line = sc.nextLine();
+			line = sc.nextLine();
 		}
 
-		while ((sc.hasNextLine()) && !Objects.equals("Jadwal", (line != null) ? line.trim() : null)) {
-			line = sc.nextLine();
+		while ((sc.hasNextLine()) && !Objects.equals("Ruangan", (line != null) ? line.trim() : null)) {
 			arrAct.add(Parser.parseActivity(line));
+			line = sc.nextLine();
 		}
 
 		while (sc.hasNextLine()) {
@@ -147,6 +158,8 @@ public class CSP {
 	}
 
 	public void setRandomAllActivity() {
+		//Test XX02---------------------------------------------------------
+		System.out.println("Entering set random all activity");
 		int actLength = arrAct.size();
 		for (int i=0 ; i<actLength ; i++) {
 			setRandomActivity(arrAct.get(i));
@@ -179,11 +192,11 @@ public class CSP {
 	public void printAllActivity() {
 		int length = arrAct.size();
 		for (int i=0; i<length; i++) {
-			System.out.print(arrAct.get(i).getName() + "-");
-			System.out.print(arrAct.get(i).getStart() + "-");
-			System.out.print(arrAct.get(i).getDuration() + "-");
-			System.out.println(arrAct.get(i).getTempDay() + "-");
-			System.out.println(arrAct.get(i).getTempRoom());
+			System.out.println("name" + arrAct.get(i).getName() + "-");
+			System.out.println("start" + arrAct.get(i).getStart() + "-");
+			System.out.println("duration" + arrAct.get(i).getDuration() + "-");
+			System.out.println("day" + arrAct.get(i).getTempDay() + "-");
+			System.out.println("room" + arrAct.get(i).getTempRoom());
 		}
 	}
 }
