@@ -1,14 +1,16 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 import java.io.*;
+import java.math.*;
 
 public class SimulatedAnnealing extends CSP{
 	private int violation;
-	private int Temperature;
-	private int r;
+	private double temperature;
+	private double r;
 
 	SimulatedAnnealing() {
-		Temperature = 100;
+		temperature = 100;
 		r = 0.97;
 	}
 
@@ -63,8 +65,10 @@ public class SimulatedAnnealing extends CSP{
 		String tempRoom;
 		int tempDay;
 		int tempStart;
-		int probability;
-		int comp;
+		double delta;
+		double exp;
+		double probability;
+		double comp;
 		while ((violation!=0) && (steps < 3000)) {
 			saveState = selectStep();
 			tempRoom = saveState.getTempRoom();
@@ -72,19 +76,22 @@ public class SimulatedAnnealing extends CSP{
 			tempStart = saveState.getStart();
 			setRandomActivity(saveState);
 			checkViolation();
-			if (countViolation() < violation) {
+			if (countViolation() <= violation) {
 				violation = countViolation();
 			} else {
-				probability;
-				comp = random();
+				delta = countViolation() - violation;
+				exp = delta / temperature;
+				probability = Math.exp(exp);
+				Random rand = new Random();
+				comp = rand.nextFloat();
 				if (probability >= comp){
 					violation = countViolation();
 				}
 				else{
-				setSaveState(saveState,tempRoom,tempDay,tempStart);
+					setSaveState(saveState,tempRoom,tempDay,tempStart);
 				}
 			}
-			Temperature = Temperature * r;
+			temperature = temperature * r;
 			steps++;
 		}
 	}
