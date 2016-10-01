@@ -64,7 +64,7 @@ public class CSP {
 		int i=0;
 		int clsLength = arrClass.size();
 		while ((!found) && (i<clsLength)) {
-			if (arrClass.get(i).getName() == name) {
+			if (Objects.equals(arrClass.get(i).getName(), new String("name"))){
 				found = true;
 			} else {
 				i++;
@@ -112,7 +112,9 @@ public class CSP {
 		int lmtStart=999;
 		int lmtFinish=-999;
 
-		if (act.getRoom() == "-") {
+		if (Objects.equals(act.getRoom(), new String("-"))) {
+			//Test XX03-----------------------------------------------------
+			System.out.println("Entering case room -");
 			do{
 				cls = randomClass();
 				tempDay = randomDay(act,cls);
@@ -131,7 +133,10 @@ public class CSP {
 				}
 			}while(lmtFinish <= (lmtStart+act.getDuration()));
 		} else {
+			System.out.println("Entering case room listed");
 			cls = findClassroom(act.getRoom());
+			//TEST XX04---------------------------------------------------------
+			System.out.println("Succesfully finding classroom");
 			tempDay = randomDay(act,cls);
 			if(tempDay!=NOT_FOUND){
 				if (cls.getOpenTime() >= act.getLmtStart()) {
