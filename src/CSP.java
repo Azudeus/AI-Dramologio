@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,7 +35,8 @@ public class CSP {
 		if (sc.hasNextLine()) {
 			line = sc.nextLine();
 		}
-		while ((sc.hasNextLine()) && !(line.trim() == "Jadwal")) {
+
+		while ((sc.hasNextLine()) && !Objects.equals("Jadwal", (line != null) ? line.trim() : null)) {
 			line = sc.nextLine();
 			arrAct.add(Parser.parseActivity(line));
 		}
@@ -74,7 +76,7 @@ public class CSP {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (int i=0; i<7 ; i++) {
 			dayValid[i] = act.getDay()[i] & cls.getDay()[i];
-			if (dayValid[i] == true) {
+			if (dayValid[i]) {
 				ret.add(i);
 			}
 		}
@@ -103,7 +105,7 @@ public class CSP {
 			do{
 				cls = randomClass();
 				tempDay = randomDay(act,cls);
-				if(tempDay!=NOT_FOUND){
+				if(tempDay != NOT_FOUND){
 					if (cls.getOpenTime() >= act.getLmtStart()) {
 						lmtStart = cls.getOpenTime();
 					} else {
