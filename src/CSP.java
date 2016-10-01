@@ -46,19 +46,23 @@ public class CSP {
 			sc.nextLine();
 			line = sc.nextLine();
 		}
-		try {
-			while ((sc.hasNextLine()) && !Objects.equals("Ruangan", (line != null) ? line.trim() : null)) {
-				arrAct.add(Parser.parseActivity(line));
-				line = sc.nextLine();
-			}
 
-			while (sc.hasNextLine()) {
-				line = sc.nextLine();
-				arrClass.add(Parser.parseClassroom(line));
+		while ((sc.hasNextLine()) && !Objects.equals("Ruangan", (line != null) ? line.trim() : null)) {
+			try {
+				arrAct.add(Parser.parseActivity(line));
+			} catch (Exception e) {
+
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.exit(0);
+			line = sc.nextLine();
+		}
+
+		while (sc.hasNextLine()) {
+			line = sc.nextLine();
+			try {
+				arrClass.add(Parser.parseClassroom(line));
+			} catch (Exception e) {
+
+			}
 		}
 	}
 
