@@ -64,7 +64,7 @@ public class CSP {
 		int i=0;
 		int clsLength = arrClass.size();
 		while ((!found) && (i<clsLength)) {
-			if (Objects.equals(arrClass.get(i).getName(), new String("name"))){
+			if (Objects.equals(arrClass.get(i).getName(), name)){
 				found = true;
 			} else {
 				i++;
@@ -97,11 +97,18 @@ public class CSP {
 	private Integer randomDay(Activity act, Classroom cls) {
 		Random rand = new Random();
 		ArrayList<Integer> listDay = checkDay(act,cls);
-		if (listDay.size() == 0) {
+		//TEST XX05----------------------------------------------------
+		System.out.println(act.getName());
+		System.out.println(act.getDay()[6]);
+		System.out.println(cls.getName());
+		System.out.println(listDay.size());
+		System.out.println("Succesfully checkday");
+		if (listDay.size() != 0) {
 			int dayLength = listDay.size();
 			int indexDay = rand.nextInt(dayLength);	
 			return listDay.get(indexDay);
 		} else {
+			System.out.println("Succesfully entering not found day cases");
 			return NOT_FOUND;
 		}
 	}
@@ -138,6 +145,7 @@ public class CSP {
 			//TEST XX04---------------------------------------------------------
 			System.out.println("Succesfully finding classroom");
 			tempDay = randomDay(act,cls);
+			System.out.println("Succesfully randoming day");
 			if(tempDay!=NOT_FOUND){
 				if (cls.getOpenTime() >= act.getLmtStart()) {
 					lmtStart = cls.getOpenTime();
