@@ -216,11 +216,11 @@ public class CSP {
 	public void printAllActivity() {
 		int length = arrAct.size();
 		for (int i=0; i<length; i++) {
-			System.out.print("name" + arrAct.get(i).getName() + "-");
-			System.out.print("start" + arrAct.get(i).getStart() + "-");
-			System.out.print("duration" + arrAct.get(i).getDuration() + "-");
-			System.out.print("day" + arrAct.get(i).getTempDay() + "-");
-			System.out.println("room" + arrAct.get(i).getTempRoom());
+			System.out.print(arrAct.get(i).getName() + " ");
+			System.out.print(arrAct.get(i).getTempDay() + " ");
+			System.out.print(arrAct.get(i).getStart() + " ");
+			System.out.print(arrAct.get(i).getDuration() + " ");
+			System.out.println(arrAct.get(i).getTempRoom());
 		}
 	}
 }
