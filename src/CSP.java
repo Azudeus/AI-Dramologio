@@ -9,53 +9,20 @@ public class CSP {
 	protected ArrayList<Activity> arrAct;
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
-	private Scanner sc;
 
 	public static final int NOT_FOUND = -999;
 
-	CSP() {
+	public CSP() {
 		arrAct = new ArrayList<Activity>();
 		arrClass = new ArrayList<Classroom>();
 		arrError = new ArrayList<PairActivity>();
-		fileReader();
-		parser();
 	}
 
-	private void fileReader() {
-		try{
-            sc = new Scanner(new File("test/Testcase.txt"));
-        } catch (FileNotFoundException e){
-            System.out.println("File not found");
-            System.exit(0);
-        } 
+	public CSP(ArrayList<Activity> activities, ArrayList<Classroom> classrooms) {
+		arrAct = activities;
+		arrClass = classrooms;
+		arrError = new ArrayList<>();
 	}
-
-	private void parser() {
-		String line = null;
-		if (sc.hasNextLine()) {
-			sc.nextLine();
-			line = sc.nextLine();
-		}
-
-		while ((sc.hasNextLine()) && !Objects.equals("Jadwal", (line != null) ? line.trim() : null)) {
-			try {
-				arrClass.add(Parser.parseClassroom(line));
-			} catch (Exception e) {
-
-			}
-			line = sc.nextLine();
-		}
-
-		while (sc.hasNextLine()) {
-			line = sc.nextLine();
-			try {
-				arrAct.add(Parser.parseActivity(line));
-			} catch (Exception e) {
-
-			}
-		}
-	}
-
 
 	public Classroom findClassroom(String name) {
 		boolean found = false;
