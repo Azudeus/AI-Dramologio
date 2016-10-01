@@ -68,17 +68,15 @@ public class Hillclimbing extends CSP{
 			tempStart = saveState.getStart();
 			setRandomActivity(saveState);
 			checkViolation();
-			if (countViolation() < violation) {
+			if (countViolation() <= violation) {
 				violation = countViolation();
 			} else {
 				setSaveState(saveState,tempRoom,tempDay,tempStart);
 			}
 			steps++;
 			//TEST XX06---------------------------------
-			System.out.println("-------------------------------------VIOLATION = " + countViolation());
 		}
 		printAllActivity();
-		System.out.println("Program succesfully run, VIOLATION LAST = "+ countViolation());	
 	}
 
     public static void main(String[] args) {

@@ -19,16 +19,6 @@ public class CSP {
 		arrError = new ArrayList<PairActivity>();
 		fileReader();
 		parser();
-
-		//Test XX01-----------------------------------------------
-		System.out.println(arrAct.size());
-		for (Activity activity : arrAct) {
-			System.out.println(activity.getName());
-		}
-		System.out.println(arrClass.size());
-		for (Classroom classroom : arrClass) {
-			System.out.println(classroom.getName());
-		}
 	}
 
 	private void fileReader() {
@@ -104,19 +94,11 @@ public class CSP {
 	private Integer randomDay(Activity act, Classroom cls) {
 		Random rand = new Random();
 		ArrayList<Integer> listDay = checkDay(act,cls);
-		//TEST XX05----------------------------------------------------
-		System.out.println(act.getName());
-		System.out.println(act.getDay()[3]);
-		System.out.println(cls.getName());
-		System.out.println(listDay.size());
-		System.out.println("Successfully checkday");
 		if (listDay.size() != 0) {
-			System.out.println("Successfully entering found day cases");
 			int dayLength = listDay.size();
 			int indexDay = rand.nextInt(dayLength);	
 			return listDay.get(indexDay);
 		} else {
-			System.out.println("Successfully entering NOT found day cases");
 			return NOT_FOUND;
 		}
 	}
@@ -128,8 +110,6 @@ public class CSP {
 		int lmtFinish=-999;
 
 		if (Objects.equals(act.getRoom(), "-")) {
-			//Test XX03-----------------------------------------------------
-			System.out.println("Entering case room -");
 			do{
 				cls = randomClass();
 				tempDay = randomDay(act,cls);
@@ -148,15 +128,9 @@ public class CSP {
 				}
 			}while(lmtFinish <= (lmtStart+act.getDuration()));
 		} else {
-			System.out.println("Entering case room listed");
 			cls = findClassroom(act.getRoom());
-			//TEST XX04---------------------------------------------------------
-			System.out.println("Successfully finding classroom");
 			tempDay = randomDay(act,cls);
-			System.out.println("Successfully randomising day");
-			System.out.println(tempDay);
 			if(tempDay!=NOT_FOUND){
-				System.out.println("Successfully entered comparing time");
 				if (cls.getOpenTime() >= act.getLmtStart()) {
 					lmtStart = cls.getOpenTime();
 				} else {
@@ -169,9 +143,6 @@ public class CSP {
 					lmtFinish = act.getLmtFinish();
 				}
 			}
-			System.out.println(lmtStart);
-			System.out.println(lmtFinish);
-			System.out.println(act.getDuration());
 			// EXCEPTION
 			if (lmtFinish < (lmtStart + act.getDuration())) {
 				System.out.println("Activity Can't fit to the class, Program Exiting");
@@ -184,11 +155,8 @@ public class CSP {
 	}
 
 	public void setRandomAllActivity() {
-		//Test XX02---------------------------------------------------------
-		System.out.println("Entering set random all activity");
 		for (Activity activity : arrAct) {
 			setRandomActivity(activity);
-			System.out.println("Successfully randomised 1 activity");
 		}
 	}
 
