@@ -1,45 +1,43 @@
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.*;
 
 
 public class Hillclimbing extends CSP{
 	private int violation;
 
-	Hillclimbing() {
-
+	Hillclimbing(ArrayList<Activity> act, ArrayList<Classroom> cls){
+		super(act,cls);
 	}
 
 	public Activity selectStep() {
 		int errLength = arrError.size();
 		Activity ret = arrError.get(0).getFirst();
 		int mostFreq = 0;
-		int occurence;
+		int occurrence;
 		for (int i=0 ; i<errLength ; i++) {			
-			occurence = 0;
+			occurrence = 0;
 			for (int j=0 ; j<errLength ; j++) {
 				if (arrError.get(i).getFirst() == arrError.get(j).getFirst()) {
-					occurence++;
+					occurrence++;
 				} else if (arrError.get(i).getFirst() == arrError.get(j).getSecond()) {
-					occurence++;
+					occurrence++;
 				}
 			}
-			if (occurence > mostFreq) {
-				mostFreq = occurence;
+			if (occurrence > mostFreq) {
+				mostFreq = occurrence;
 				ret = arrError.get(i).getFirst();
 			}
 		}
 		for (int i=0 ; i<errLength ; i++) {			
-			occurence = 0;
+			occurrence = 0;
 			for (int j=0 ; j<errLength ; j++) {
 				if (arrError.get(i).getSecond() == arrError.get(j).getFirst()) {
-					occurence++;
+					occurrence++;
 				} else if (arrError.get(i).getSecond() == arrError.get(j).getSecond()) {
-					occurence++;
+					occurrence++;
 				}
 			}
-			if (occurence > mostFreq) {
-				mostFreq = occurence;
+			if (occurrence > mostFreq) {
+				mostFreq = occurrence;
 				ret = arrError.get(i).getSecond();
 			}
 		}
@@ -81,8 +79,12 @@ public class Hillclimbing extends CSP{
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new Hillclimbing().run();
+  		FileReader fileReader = new FileReader();
+  		ArrayList<Classroom> classrooms = fileReader.parseArrayClassroom();
+  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
+        new Hillclimbing(activities,classrooms).run();
     }
 
 
 }
+
