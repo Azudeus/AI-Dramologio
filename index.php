@@ -61,6 +61,12 @@
 				}
 				echo "</table>";
 			}
+
+			function whiteSpacing($num){
+				for ($i=0; $i < $num; $i++){
+					echo "&nbsp ";
+				}
+			}
 		?>
 
 		<!-- Deskripsi kelompok : pinggir -->
@@ -82,9 +88,12 @@
 				<form action="index.php" method="post" >
 					<input type="submit" name="genetic" value="Genetic" style="margin-left: 120px"/>
 					<input type="submit" name="hc" value="Hill Climbing"/>
-					<input type="submit" name="sa" value="Simulated Annealing"/>
-					steps<input type="number" name="steps" value="3000"/>
-					population<input type="number" name="population" value="4"/>
+					<input type="submit" name="sa" value="Simulated Annealing"/><br><br>
+					<?php whiteSpacing(27) ?>
+					Steps <?php whiteSpacing(2) ?>
+					<input type="number" class="stepnpop" name="steps" value="3000"/>
+					<?php whiteSpacing(2) ?>Population <?php whiteSpacing(2) ?>
+					<input type="number" class="stepnpop" name="population" value="4"/>
 				</form>
 				</div>
 				<br><br>
@@ -98,27 +107,16 @@
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-						for ($i=0; $i < count($arrayOfAct); $i++){
-							for ($j=0; $j < 5; $j++){			
-								//echo $arrayOfAct[$i][$j]. " ";
-							}
-							//echo "<br>";
-						}
 
 						createTable($arrayOfAct);
-
-						/*
-						ini gw coba buat button supaya pindah
-						echo "<form action='index.php' method='post' >";
+						echo "<form method='post' >";
 						echo "<input type='submit' name='move' value='Move' style='margin-left: 120px'/></form>";
-
-						somehow doesnt work
-						if(isset($_POST["move"])){
-							createTable($arrayOfAct);
-							echo "<input type='submit' name='move' value='Bukan Move' style='margin-left: 120px'/>";
-						}
-						*/
 						
+					}
+
+					if(isset($_POST["move"])){
+						createTable($arrayOfAct);
+						echo "<input type='submit' name='move' value='Bukan Move' style='margin-left: 120px'/>";
 					}
 
 					//pilihan algoritma = hill climbing
@@ -127,12 +125,6 @@
 						exec("java -cp ".getcwd()."/src Hillclimbing",$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
-						}
-						for ($i=0; $i < count($arrayOfAct); $i++){
-							for ($j=0; $j < 5; $j++){			
-//								echo $arrayOfAct[$i][$j]. " ";
-							}
-//							echo "<br>";
 						}
 
 						createTable($arrayOfAct);
@@ -145,22 +137,9 @@
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-						for ($i=0; $i < count($arrayOfAct); $i++){
-							for ($j=0; $j < 5; $j++){			
-								//echo $arrayOfAct[$i][$j]. " ";
-							}
-							//echo "<br>";
-						}
 
 						createTable($arrayOfAct);
 					}
-
-					/*kalau gw taro luar if arrayOfAct nya belom ke assign
-					if(isset($_POST["move"])){
-							createTable($arrayOfAct);
-							echo "<input type='submit' name='move' value='Bukan Move' style='margin-left: 120px'/>";
-						}
-					*/
 				?>
 			</div>
 			

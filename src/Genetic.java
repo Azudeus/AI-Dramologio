@@ -13,9 +13,12 @@ public class Genetic {
 
     public Genetic(int populationSize,int steps, ArrayList<Activity> activities, ArrayList<Classroom> classrooms) {
         this.populationSize = populationSize;
+        this.population = new ArrayList<>();
         this.steps = steps;
+
         int activitiesSize = activities.size();
-        maximumViolation = (activitiesSize * (activitiesSize - 1)) >> 1;
+        this.maximumViolation = (activitiesSize * (activitiesSize - 1)) >> 1;
+
         for (int i = 0; i < populationSize; i++) {
             CSP csp = new CSP(activities,classrooms);
             csp.setRandomAllActivity();
@@ -23,7 +26,7 @@ public class Genetic {
         }
     }
 
-    private int countTotalFitness() {
+    public int countTotalFitness() {
         int total = 0;
         for (CSP populace : population) {
             total += (maximumViolation - populace.countViolation());
@@ -31,21 +34,21 @@ public class Genetic {
         return total;
     }
 
-    private CSP selection(int totalFitness) {
+    public CSP selection(int totalFitness) {
         //select random number
         Random rand = new Random();
         int random = rand.nextInt(totalFitness);
 
         //find populace
         int i = 0;
-        while (random > 0 && i < populationSize) {
+        while (random >= 0 && i < populationSize) {
             random -= (maximumViolation - population.get(i).countViolation());
             i++;
         }
         return population.get(i-1);
     }
 
-    private ArrayList<Activity> crossover(ArrayList<Activity> activities1, ArrayList<Activity> activities2) {
+    public ArrayList<Activity> crossover(ArrayList<Activity> activities1, ArrayList<Activity> activities2) {
         Random rand = new Random();
         ArrayList<Activity> activities = new ArrayList<>(activities1.size());
         int indexCrossover = rand.nextInt(activities1.size());
@@ -58,14 +61,14 @@ public class Genetic {
         return activities;
     }
 
-    private void mutate(CSP csp) {
+    public void mutate(CSP csp) {
         //choose activity to mutate and then use setRandomActivity
         Random rand = new Random();
         int indexMutation = rand.nextInt(csp.getArrayActivity().size());
         csp.setRandomActivity(csp.getArrayActivity().get(indexMutation));
     }
 
-    private CSP breed() {
+    public CSP breed() {
         //select two from population using roulette
         int totalFitness = countTotalFitness();
         CSP parent1 = selection(totalFitness);
@@ -84,18 +87,18 @@ public class Genetic {
         return newPopulace;
     }
 
-    private int newGeneration() {
+    public int newGeneration() {
         ArrayList<CSP> newPopulation = new ArrayList<>();
         int minimumViolation = 10000;
         for (int i = 0; i < populationSize; i++) {
             newPopulation.add(breed());
             minimumViolation = Math.min(newPopulation.get(i).countViolation(), minimumViolation);
         }
-        population = newPopulation;
+        this.population = newPopulation;
         return minimumViolation;
     }
 
-    private CSP findBestCSP() {
+    public CSP findBestCSP() {
         int minimumIndex = 0;
         for (int i = 1; i < populationSize; i++) {
             if (population.get(i).countViolation() < population.get(minimumIndex).countViolation()) {
@@ -107,7 +110,9 @@ public class Genetic {
 
     public CSP run() {
         int i = 0;
-        while (newGeneration() > 0 && i < steps) i++;
+        while (newGeneration() > 0 && i < steps) {
+            i++;
+        }
         return findBestCSP();
     }
 
