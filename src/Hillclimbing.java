@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 public class Hillclimbing extends CSP{
 	private int violation;
+	private int steps;
 
-	Hillclimbing(ArrayList<Activity> act, ArrayList<Classroom> cls){
+	Hillclimbing(ArrayList<Activity> act, ArrayList<Classroom> cls, int steps){
 		super(act,cls);
+		this.steps = steps;
 	}
 
 	public Activity selectStep() {
@@ -54,7 +56,6 @@ public class Hillclimbing extends CSP{
 		setRandomAllActivity();
 		checkViolation();
 		violation = countViolation();
-		int steps = 0;
 		Activity saveState;
 		String tempRoom;
 		int tempDay;
@@ -79,10 +80,15 @@ public class Hillclimbing extends CSP{
 
     public static void main(String[] args) {
         // TODO code application logic here
-  		FileReader fileReader = new FileReader();
-  		ArrayList<Classroom> classrooms = fileReader.parseArrayClassroom();
-  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
-        new Hillclimbing(activities,classrooms).run();
+        try{
+	  		FileReader fileReader = new FileReader(args[0]);
+	  		ArrayList<Classroom> classrooms = fileReader.parseArrayClassroom();
+	  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
+	        new Hillclimbing(activities,classrooms,Integer.parseInt(args[1])).run();
+    	} catch (ArrayIndexOutOfBoundsException e){
+    		System.out.println("Input not enough, please put filename and how many steps do you want");
+    		System.exit(0);
+    	}
     }
 
 

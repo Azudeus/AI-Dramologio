@@ -139,7 +139,10 @@ public class CSP {
 					} else if ((arrAct.get(j).getStart() > arrAct.get(i).getStart()) && ((arrAct.get(i).getStart()+arrAct.get(i).getDuration()) > arrAct.get(j).getStart())) {
 						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
 						arrError.add(err);
-					} 
+					} else if (arrAct.get(i).getStart() == arrAct.get(j).getStart()) {
+						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
+						arrError.add(err);	
+					}
 				}
 			}
 		}
