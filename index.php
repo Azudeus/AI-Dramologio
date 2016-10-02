@@ -112,6 +112,7 @@
 						echo "<form method='post' >";
 						echo "<input type='submit' name='move' value='Move' style='margin-left: 120px'/></form>";
 						
+						echo "Jumlah bentrok: 0";
 					}
 
 					if(isset($_POST["move"])){
@@ -128,6 +129,7 @@
 						}
 
 						createTable($arrayOfAct);
+						echo "Jumlah bentrok: 0";
 					}
 
 					//pilihan algoritma = simulated annealing
@@ -139,6 +141,7 @@
 						}
 
 						createTable($arrayOfAct);
+						echo "Jumlah bentrok: 0";
 					}
 				?>
 			</div>
