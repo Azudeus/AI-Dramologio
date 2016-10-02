@@ -90,7 +90,4 @@ public class Hillclimbing extends CSP{
     		System.exit(0);
     	}
     }
-
-
 }
-
