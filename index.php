@@ -124,16 +124,15 @@
 					//pilihan algoritma = hill climbing
 					if(isset($_POST["hc"])){
 						//eksekusi java - push ke array
-						echo getcwd();
 						exec("java -cp ".getcwd()."/src Hillclimbing",$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							for ($j=0; $j < 5; $j++){			
-								echo $arrayOfAct[$i][$j]. " ";
+//								echo $arrayOfAct[$i][$j]. " ";
 							}
-							echo "<br>";
+//							echo "<br>";
 						}
 
 						createTable($arrayOfAct);

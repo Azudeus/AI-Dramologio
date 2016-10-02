@@ -11,7 +11,7 @@ public class FileReader {
     private Scanner sc;
 
     public FileReader() {
-        this("test/Testcase.txt");
+        this("Testcase.txt");
     }
 
     public FileReader(String inputFile) {
