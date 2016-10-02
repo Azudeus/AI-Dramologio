@@ -16,7 +16,10 @@ public class CSP {
 	}
 
 	public CSP(ArrayList<Activity> activities, ArrayList<Classroom> classrooms) {
-		arrAct = activities;
+		arrAct = new ArrayList<>();
+		for (Activity activity : activities) {
+			arrAct.add(new Activity(activity));
+		}
 		arrClass = classrooms;
 		arrError = new ArrayList<>();
 	}
@@ -138,7 +141,7 @@ public class CSP {
 		int actLength = arrAct.size();
 		for (int i=0; i<actLength ; i++) {
 			for(int j=i+1 ; j<actLength ; j++) {
-				if ((arrAct.get(i).getTempRoom() == arrAct.get(j).getTempRoom()) && (arrAct.get(i)).getTempDay() == arrAct.get(j).getTempDay()) {
+				if (Objects.equals(arrAct.get(i).getTempRoom(), arrAct.get(j).getTempRoom()) && (arrAct.get(i).getTempDay() == arrAct.get(j).getTempDay())) {
 					if ((arrAct.get(i).getStart() > arrAct.get(j).getStart()) && ((arrAct.get(j).getStart()+arrAct.get(j).getDuration()) > arrAct.get(i).getStart())) {
 						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
 						arrError.add(err);
@@ -160,11 +163,7 @@ public class CSP {
 
 	public void printAllActivity() {
 		for (Activity activity : arrAct) {
-			System.out.print(activity.getName() + " ");
-			System.out.print(activity.getTempDay() + " ");
-			System.out.print(activity.getStart() + " ");
-			System.out.print(activity.getDuration() + " ");
-			System.out.println(activity.getTempRoom());
+			System.out.println(activity.toString());
 		}
 	}
 }
