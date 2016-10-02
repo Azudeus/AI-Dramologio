@@ -91,9 +91,9 @@
 					<input type="submit" name="sa" value="Simulated Annealing"/><br><br>
 					<?php whiteSpacing(27) ?>
 					Steps <?php whiteSpacing(2) ?>
-					<input type="number" class="stepnpop" name="steps" value="3000"/>
+					<input type="number" class="stepnpop" name="steps"/>
 					<?php whiteSpacing(2) ?>Population <?php whiteSpacing(2) ?>
-					<input type="number" class="stepnpop" name="population" value="4"/>
+					<input type="number" class="stepnpop" name="population" />
 				</form>
 				</div>
 				<br><br>
@@ -103,7 +103,7 @@
 					//pilihan algoritma = genetic algorithm
 					if(isset($_POST["genetic"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src genetic",$arrayOfAct);
+						exec("java -cp ".getcwd()."/src genetic Testcase.txt ".$_POST['steps']." ".$_POST['population'],$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
@@ -122,7 +122,7 @@
 					//pilihan algoritma = hill climbing
 					if(isset($_POST["hc"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src Hillclimbing",$arrayOfAct);
+						exec("java -cp ".getcwd()."/src Hillclimbing Testcase.txt ".$_POST['steps'],$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
@@ -133,7 +133,7 @@
 					//pilihan algoritma = simulated annealing
 					if(isset($_POST["sa"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src SimulatedAnnealing",$arrayOfAct);
+						exec("java -cp ".getcwd()."/src SimulatedAnnealing Testcase.txt ".$_POST['steps'],$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
