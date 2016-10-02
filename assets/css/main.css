@@ -2439,6 +2439,15 @@
 			cursor: default;
 		}
 
+		.stepnpop {
+			color: #b2b2b2 ;
+			background: #f7f7f7;
+			border-radius: 0.35em;
+			border: solid 2px transparent;
+			padding-left: 10px ;
+			width: 120px ;
+		}
+
 /* Work Item */
 
 	.work-item {
