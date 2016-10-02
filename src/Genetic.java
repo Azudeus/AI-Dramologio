@@ -117,9 +117,9 @@ public class Genetic {
     }
 
     public static void main(String args[]) {
-        int step = Integer.parseInt(args[0]);
-        int popSize = Integer.parseInt(args[1]);
-        FileReader fr = new FileReader();
+        int step = Integer.parseInt(args[1]);
+        int popSize = Integer.parseInt(args[2]);
+        FileReader fr = new FileReader(args[0]);
         ArrayList<Classroom> classrooms = fr.parseArrayClassroom();
         ArrayList<Activity> activities = fr.parseArrayActivity();
 
