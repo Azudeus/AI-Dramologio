@@ -103,7 +103,7 @@
 					//pilihan algoritma = genetic algorithm
 					if(isset($_POST["genetic"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src genetic Testcase.txt ".$_POST['steps']." ".$_POST['population'],$arrayOfAct);
+						exec("java -cp ".getcwd()."/src Genetic Testcase.txt ".$_POST['steps']." ".$_POST['population'],$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
