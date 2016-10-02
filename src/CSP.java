@@ -1,9 +1,6 @@
 import java.util.Objects;
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.*;
-
 
 public class CSP {
 	protected ArrayList<Activity> arrAct;
@@ -22,6 +19,14 @@ public class CSP {
 		arrAct = activities;
 		arrClass = classrooms;
 		arrError = new ArrayList<>();
+	}
+
+	public ArrayList<Activity> getArrayActivity() {
+		return arrAct;
+	}
+
+	public ArrayList<Classroom> getArrayClassroom() {
+		return arrClass;
 	}
 
 	public Classroom findClassroom(String name) {
