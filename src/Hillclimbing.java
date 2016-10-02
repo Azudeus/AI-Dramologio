@@ -54,7 +54,6 @@ public class Hillclimbing extends CSP{
 
 	public void run() {
 		setRandomAllActivity();
-		checkViolation();
 		violation = countViolation();
 		Activity saveState;
 		String tempRoom;

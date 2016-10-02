@@ -130,6 +130,7 @@ public class CSP {
 		for (Activity activity : arrAct) {
 			setRandomActivity(activity);
 		}
+		checkViolation();
 	}
 
 	public void checkViolation() {
