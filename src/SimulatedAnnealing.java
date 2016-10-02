@@ -6,10 +6,13 @@ import java.math.*;
 
 public class SimulatedAnnealing extends CSP{
 	private int violation;
+	private int steps;
 	private double temperature;
 	private double r;
 
-	SimulatedAnnealing() {
+	SimulatedAnnealing(ArrayList<Activity> act, ArrayList<Classroom> cls, int steps) {
+		super(act,cls);
+		this.steps = steps;
 		temperature = 100;
 		r = 0.97;
 	}
@@ -60,7 +63,6 @@ public class SimulatedAnnealing extends CSP{
 		setRandomAllActivity();
 		checkViolation();
 		violation = countViolation();
-		int steps = 0;
 		Activity saveState;
 		String tempRoom;
 		int tempDay;
@@ -69,21 +71,31 @@ public class SimulatedAnnealing extends CSP{
 		double exp;
 		double probability;
 		double comp;
-		while ((violation!=0) && (steps < 3000)) {
+		int i = 0;
+		//System.out.println("violation = " + violation);
+		//System.out.println("steps = " + steps);
+		while ((violation!=0) && (i < steps)) {
+			//System.out.println("masuk while");
 			saveState = selectStep();
 			tempRoom = saveState.getTempRoom();
 			tempDay = saveState.getTempDay();
 			tempStart = saveState.getStart();
 			setRandomActivity(saveState);
 			checkViolation();
+			//System.out.println(violation);
+			//System.out.println(countViolation());
 			if (countViolation() <= violation) {
+				//System.out.println("masuk");
 				violation = countViolation();
 			} else {
-				delta = countViolation() - violation;
+				//System.out.println("masuk2");
+				delta = violation - countViolation();
 				exp = delta / temperature;
 				probability = Math.exp(exp);
+				//System.out.println(probability);
 				Random rand = new Random();
 				comp = rand.nextFloat();
+				//System.out.println(comp);
 				if (probability >= comp){
 					violation = countViolation();
 				}
@@ -92,7 +104,7 @@ public class SimulatedAnnealing extends CSP{
 				}
 			}
 			temperature = temperature * r;
-			steps++;
+			i++;
 			//System.out.println ("Violation" + countViolation());
 		}
 		printAllActivity();
@@ -100,7 +112,14 @@ public class SimulatedAnnealing extends CSP{
 	}
 
     public static void main(String[] args) {
-        // TODO code application logic here
-        new SimulatedAnnealing().run();
+       try{
+	  		FileReader fileReader = new FileReader(args[0]);
+	  		ArrayList<Classroom> classrooms = fileReader.parseArrayClassroom();
+	  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
+	        new SimulatedAnnealing(activities,classrooms,Integer.parseInt(args[1])).run();
+    	} catch (ArrayIndexOutOfBoundsException e){
+    		System.out.println("Input not enough, please put filename and how many steps do you want");
+    		System.exit(0);
+    	}
     }
 }
