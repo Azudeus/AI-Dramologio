@@ -9,12 +9,15 @@ public class Genetic {
     private ArrayList<CSP> population;
     private int populationSize;
     private int steps;
+    private int maximumViolation;
 
-    public Genetic(int populationSize,int steps) {
+    public Genetic(int populationSize,int steps, ArrayList<Activity> activities, ArrayList<Classroom> classrooms) {
         this.populationSize = populationSize;
         this.steps = steps;
+        int activitiesSize = activities.size();
+        maximumViolation = (activitiesSize * (activitiesSize - 1)) >> 1;
         for (int i = 0; i < populationSize; i++) {
-            CSP csp = new CSP();
+            CSP csp = new CSP(activities,classrooms);
             csp.setRandomAllActivity();
             population.add(csp);
         }
@@ -23,7 +26,7 @@ public class Genetic {
     private int countTotalFitness() {
         int total = 0;
         for (CSP populace : population) {
-            total += populace.countViolation();
+            total += (maximumViolation - populace.countViolation());
         }
         return total;
     }
@@ -36,7 +39,7 @@ public class Genetic {
         //find populace
         int i = 0;
         while (random > 0 && i < populationSize) {
-            random -= population.get(i).countViolation();
+            random -= (maximumViolation - population.get(i).countViolation());
             i++;
         }
         return population.get(i-1);
@@ -111,7 +114,11 @@ public class Genetic {
     public static void main(String args[]) {
         int step = Integer.parseInt(args[0]);
         int popSize = Integer.parseInt(args[1]);
-        Genetic genetic = new Genetic(popSize,step);
+        FileReader fr = new FileReader();
+        ArrayList<Classroom> classrooms = fr.parseArrayClassroom();
+        ArrayList<Activity> activities = fr.parseArrayActivity();
+
+        Genetic genetic = new Genetic(popSize,step,activities,classrooms);
         CSP answer = genetic.run();
         answer.printAllActivity();
     }
