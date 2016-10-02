@@ -83,6 +83,8 @@
 					<input type="submit" name="genetic" value="Genetic" style="margin-left: 120px"/>
 					<input type="submit" name="hc" value="Hill Climbing"/>
 					<input type="submit" name="sa" value="Simulated Annealing"/>
+					steps<input type="number" name="steps" value="3000"/>
+					population<input type="number" name="population" value="4"/>
 				</form>
 				</div>
 				<br><br>
@@ -122,15 +124,16 @@
 					//pilihan algoritma = hill climbing
 					if(isset($_POST["hc"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src hc",$arrayOfAct);
+						echo getcwd();
+						exec("java -cp ".getcwd()."/src Hillclimbing",$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							for ($j=0; $j < 5; $j++){			
-								//echo $arrayOfAct[$i][$j]. " ";
+								echo $arrayOfAct[$i][$j]. " ";
 							}
-							//echo "<br>";
+							echo "<br>";
 						}
 
 						createTable($arrayOfAct);
@@ -139,7 +142,7 @@
 					//pilihan algoritma = simulated annealing
 					if(isset($_POST["sa"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src sa",$arrayOfAct);
+						exec("java -cp ".getcwd()."/src SimulatedAnnealing",$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct); $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
