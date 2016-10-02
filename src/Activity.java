@@ -12,9 +12,7 @@ public class Activity {
 	private int start;
 	private int tempDay;
 
-
-
-	Activity(String name, boolean[] day, int lmtStart, int lmtFinish, int duration, String room) {
+	public Activity(String name, boolean[] day, int lmtStart, int lmtFinish, int duration, String room) {
 		this.name = name;
 		this.day = new boolean[7];
 		for (int i = 0; i < 7; i++) {
@@ -27,6 +25,21 @@ public class Activity {
 		this.start = 0;
 		this.tempDay = 0;
 		this.tempRoom = "";
+	}
+
+	public Activity(Activity activity) {
+		this.name = activity.name;
+		this.day = new boolean[7];
+		for (int i = 0; i < 7; i++) {
+			this.day[i] = activity.day[i];
+		}
+		this.lmtStart = activity.lmtStart;
+		this.lmtFinish = activity.lmtFinish;
+		this.duration = activity.duration;
+		this.room = activity.room;
+		this.start = activity.start;
+		this.tempDay = activity.tempDay;
+		this.tempRoom = activity.tempRoom;
 	}
 
 	public void setRandomStart(int start, int finish) {
@@ -83,6 +96,12 @@ public class Activity {
 		return tempDay;
 	}
 
-
+	public String toString() {
+		return  this.getName() + " " +
+				this.getTempDay() + " " +
+				this.getStart() + " " +
+				this.getDuration() + " " +
+				this.getTempRoom();
+	}
 }
 
