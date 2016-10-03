@@ -110,10 +110,15 @@ public class Genetic {
 
     public CSP run() {
         int i = 0;
+        CSP best = findBestCSP();
         while (newGeneration() > 0 && i < steps) {
+            CSP temp = findBestCSP();
+            best = temp.countViolation() > best.countViolation() ? temp : best;
             i++;
         }
-        return findBestCSP();
+        CSP temp = findBestCSP();
+        best = temp.countViolation() > best.countViolation() ? temp : best;
+        return best;
     }
 
     public static void main(String args[]) {
@@ -126,8 +131,8 @@ public class Genetic {
         Genetic genetic = new Genetic(popSize,step,activities,classrooms);
         CSP answer = genetic.run();
         answer.printAllActivity();
-		System.out.println("Jumlah Bentrok: ");
-		System.out.println("Persentasi keefektifan " );
+		System.out.println("Jumlah Bentrok: " + answer.countViolation());
+		System.out.println("Persentasi keefektifan " + answer.percentage() );
 	
     }
 }
