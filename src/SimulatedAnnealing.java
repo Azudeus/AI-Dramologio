@@ -109,7 +109,8 @@ public class SimulatedAnnealing extends CSP{
 		}
 		printAllActivity();
 		System.out.println("Jumlah bentrok: " + violation);
-		System.out.println("Persentasi keefektifan " );
+		double persen = percentage2();
+		System.out.println("Persentase: " + persen + "%");
 	
 	}
 
@@ -121,7 +122,6 @@ public class SimulatedAnnealing extends CSP{
 	        new SimulatedAnnealing(activities,classrooms,Integer.parseInt(args[1])).run();
     	} catch (ArrayIndexOutOfBoundsException e){
     		System.out.println("Input not enough, please put filename and how many steps do you want");
-    		System.out.println("Algorithm terminated");
     		System.exit(0);
     	}
     }

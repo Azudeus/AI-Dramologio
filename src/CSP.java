@@ -6,6 +6,7 @@ public class CSP {
 	protected ArrayList<Activity> arrAct;
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
+	private boolean[] boolClass;
 
 	public static final int NOT_FOUND = -999;
 
@@ -165,5 +166,90 @@ public class CSP {
 		for (Activity activity : arrAct) {
 			System.out.println(activity.toString());
 		}
+	}
+
+	public double percentage(){
+		int classLength = arrClass.size();
+		double day = 0;
+		double sum = 0;
+		double total = 0;
+		for (int i = 0; i < classLength; i++){
+			for (int j = 0; j < 7; j++){
+				if (arrClass.get(i).getDay()[j]){
+					day++;
+				}
+			}
+			total = total + (day * (arrClass.get(i).getClosedTime() - arrClass.get(i).getOpenTime()));
+			day = 0;
+		}
+		System.out.println("total = " + total);
+		int actLength = arrAct.size();
+		for (int i = 0; i < actLength; i++){
+			sum = sum + arrAct.get(i).getDuration();
+		}
+		System.out.println("sum = " + sum);
+		int violation = countViolation();
+		for (int i = 0; i < violation; i++){
+			if (arrError.get(i).getFirst().getStart() == arrError.get(i).getSecond().getStart()){
+				if (arrError.get(i).getFirst().getDuration() > arrError.get(i).getSecond().getDuration()){
+					sum = sum - arrError.get(i).getSecond().getDuration();
+				}
+				else{
+					sum = sum - arrError.get(i).getFirst().getDuration();
+				}
+			}
+			else if (arrError.get(i).getFirst().getStart() > arrError.get(i).getSecond().getStart()){
+				if (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() <= arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration()){
+					sum = sum - arrError.get(i).getFirst().getDuration();
+				}
+				else{
+					sum = sum - (arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration() - arrError.get(i).getFirst().getStart());	
+				}
+			}
+			else{
+				if (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() >= arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration()){
+					sum = sum - arrError.get(i).getSecond().getDuration();
+				}
+				else{
+					sum = sum - (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() - arrError.get(i).getSecond().getStart());	
+				}
+			}
+		}
+		System.out.println("sum2 = " + sum);
+		double hasil = sum/total;
+		System.out.println("hasil = " + hasil);
+		return (sum/total * 100);
+	}
+
+	public double percentage2(){
+		//System.out.println("masuk");
+		boolClass = new boolean[arrClass.size()];
+		double sum = 0;
+		double total = (double)arrClass.size();
+		for (int i = 0; i < arrClass.size(); i++){
+			//System.out.println("masuk5");
+			boolClass[i] = false;
+		}
+
+		//System.out.println("masuk2");
+		//System.out.println("act : " + arrAct.size());
+		//System.out.println("class : " + arrClass.size());
+		for (int i = 0; i < arrAct.size(); i++){
+			for (int j = 0; j < arrClass.size();j++){
+				if (arrAct.get(i).getTempRoom() == arrClass.get(j).getName()){
+					//System.out.println("masuk3");
+					boolClass[j] = true;
+				}
+			}
+		}
+
+		for (int i = 0; i < arrClass.size(); i++){
+			//System.out.println("masuk4");
+			if (boolClass[i]){
+				sum++;
+			}
+		}
+		//System.out.println("sum : " + sum);
+		return (sum/total * 100);
 	}
 }
