@@ -6,7 +6,6 @@ public class CSP {
 	protected ArrayList<Activity> arrAct;
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
-	private boolean[] boolClass;
 
 	public static final int NOT_FOUND = -999;
 
