@@ -127,5 +127,7 @@ public class Genetic {
         CSP answer = genetic.run();
         answer.printAllActivity();
 		System.out.println("Jumlah Bentrok: ");
+		System.out.println("Persentasi keefektifan " );
+	
     }
 }

@@ -40,7 +40,7 @@
 						echo "<td>";
 						$dummy1 = 0 ;
 						$dummy2 = 0 ;
-						for ($i=0; $i < count($arrayOfAct); $i++){
+						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$tLastStart = $arrayOfAct[$i][2] + $arrayOfAct[$i][3] - 1 ;
 							if ($arrayOfAct[$i][1]==$k and $j>=$arrayOfAct[$i][2] and $j<=$tLastStart){
 								$dummy1++ ;
@@ -104,15 +104,18 @@
 					if(isset($_POST["genetic"])){
 						//eksekusi java - push ke array
 						exec("java -cp ".getcwd()."/src Genetic Testcase.txt ".$_POST['steps']." ".$_POST['population'],$arrayOfAct);
-						for ($i=0; $i < count($arrayOfAct); $i++){
+						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-
+						echo $arrayOfAct[count($arrayOfAct)-2]. " ";
+						echo $arrayOfAct[count($arrayOfAct)-1];
+						unset($arrayOfAct[count($arrayOfAct)-1]);
+						unset($arrayOfAct[count($arrayOfAct)-2]);
 						createTable($arrayOfAct);
+						
 						echo "<form method='post' >";
 						echo "<input type='submit' name='move' value='Move' style='margin-left: 120px'/></form>";
 						
-						echo "Jumlah bentrok: 0";
 					}
 
 					if(isset($_POST["move"])){
@@ -124,24 +127,29 @@
 					if(isset($_POST["hc"])){
 						//eksekusi java - push ke array
 						exec("java -cp ".getcwd()."/src Hillclimbing Testcase.txt ".$_POST['steps'],$arrayOfAct);
-						for ($i=0; $i < count($arrayOfAct); $i++){
+						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-
+						echo $arrayOfAct[count($arrayOfAct)-2]." ";
+						echo $arrayOfAct[count($arrayOfAct)-1];
+						unset($arrayOfAct[count($arrayOfAct)-1]);
+						unset($arrayOfAct[count($arrayOfAct)-2]);
 						createTable($arrayOfAct);
-						echo "Jumlah bentrok: 0";
+
 					}
 
 					//pilihan algoritma = simulated annealing
 					if(isset($_POST["sa"])){
 						//eksekusi java - push ke array
 						exec("java -cp ".getcwd()."/src SimulatedAnnealing Testcase.txt ".$_POST['steps'],$arrayOfAct);
-						for ($i=0; $i < count($arrayOfAct); $i++){
+						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-
+						echo $arrayOfAct[count($arrayOfAct)-2]." ";
+						echo $arrayOfAct[count($arrayOfAct)-1];
+						unset($arrayOfAct[count($arrayOfAct)-1]);
+						unset($arrayOfAct[count($arrayOfAct)-2]);
 						createTable($arrayOfAct);
-						echo "Jumlah bentrok: 0";
 					}
 				?>
 			</div>
