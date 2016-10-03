@@ -183,13 +183,11 @@ public class CSP {
 			total = total + (day * (arrClass.get(i).getClosedTime() - arrClass.get(i).getOpenTime()));
 			day = 0;
 		}
-		//System.out.println("total = " + total);
 		//HITUNG TOTAL JAM YANG DIGUNAKAN TANPA BENTROK
 		int actLength = arrAct.size();
 		for (int i = 0; i < actLength; i++){
 			sum = sum + arrAct.get(i).getDuration();
 		}
-		//System.out.println("sum = " + sum);
 		//HITUNG TOTAL JAM JIKA BENTROK
 		int violation = countViolation();
 		for (int i = 0; i < violation; i++){
@@ -221,41 +219,6 @@ public class CSP {
 				}
 			}
 		}
-		//System.out.println("sum2 = " + sum);
-		//double hasil = sum/total;
-		//System.out.println("hasil = " + hasil);
-		return (sum/total * 100);
-	}
-
-	public double percentage2(){
-		//System.out.println("masuk");
-		boolClass = new boolean[arrClass.size()];
-		double sum = 0;
-		double total = (double)arrClass.size();
-		for (int i = 0; i < arrClass.size(); i++){
-			//System.out.println("masuk5");
-			boolClass[i] = false;
-		}
-
-		//System.out.println("masuk2");
-		//System.out.println("act : " + arrAct.size());
-		//System.out.println("class : " + arrClass.size());
-		for (int i = 0; i < arrAct.size(); i++){
-			for (int j = 0; j < arrClass.size();j++){
-				if (arrAct.get(i).getTempRoom() == arrClass.get(j).getName()){
-					//System.out.println("masuk3");
-					boolClass[j] = true;
-				}
-			}
-		}
-
-		for (int i = 0; i < arrClass.size(); i++){
-			//System.out.println("masuk4");
-			if (boolClass[i]){
-				sum++;
-			}
-		}
-		//System.out.println("sum : " + sum);
 		return (sum/total * 100);
 	}
 }
