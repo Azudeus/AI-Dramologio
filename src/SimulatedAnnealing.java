@@ -109,8 +109,8 @@ public class SimulatedAnnealing extends CSP{
 		}
 		printAllActivity();
 		System.out.println("Jumlah bentrok: " + violation);
-		double persen = percentage2();
-		System.out.println("Persentase: " + persen + "%");
+		double persen = percentage();
+		System.out.println("Persentase: " + persen + " %");
 	
 	}
 

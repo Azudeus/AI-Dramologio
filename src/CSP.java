@@ -173,6 +173,7 @@ public class CSP {
 		double day = 0;
 		double sum = 0;
 		double total = 0;
+		//HITUNG TOTAL JAM YANG AVAILABLE
 		for (int i = 0; i < classLength; i++){
 			for (int j = 0; j < 7; j++){
 				if (arrClass.get(i).getDay()[j]){
@@ -182,14 +183,17 @@ public class CSP {
 			total = total + (day * (arrClass.get(i).getClosedTime() - arrClass.get(i).getOpenTime()));
 			day = 0;
 		}
-		System.out.println("total = " + total);
+		//System.out.println("total = " + total);
+		//HITUNG TOTAL JAM YANG DIGUNAKAN TANPA BENTROK
 		int actLength = arrAct.size();
 		for (int i = 0; i < actLength; i++){
 			sum = sum + arrAct.get(i).getDuration();
 		}
-		System.out.println("sum = " + sum);
+		//System.out.println("sum = " + sum);
+		//HITUNG TOTAL JAM JIKA BENTROK
 		int violation = countViolation();
 		for (int i = 0; i < violation; i++){
+			//JIKA MULAINYA BERSAMAAN
 			if (arrError.get(i).getFirst().getStart() == arrError.get(i).getSecond().getStart()){
 				if (arrError.get(i).getFirst().getDuration() > arrError.get(i).getSecond().getDuration()){
 					sum = sum - arrError.get(i).getSecond().getDuration();
@@ -198,6 +202,7 @@ public class CSP {
 					sum = sum - arrError.get(i).getFirst().getDuration();
 				}
 			}
+			//JIKA AKTIVITAS 2 MULAI DULUAN
 			else if (arrError.get(i).getFirst().getStart() > arrError.get(i).getSecond().getStart()){
 				if (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() <= arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration()){
 					sum = sum - arrError.get(i).getFirst().getDuration();
@@ -206,6 +211,7 @@ public class CSP {
 					sum = sum - (arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration() - arrError.get(i).getFirst().getStart());	
 				}
 			}
+			//JIKA AKTIVITAS 1 MULAI DULUAN
 			else{
 				if (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() >= arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration()){
 					sum = sum - arrError.get(i).getSecond().getDuration();
@@ -215,9 +221,9 @@ public class CSP {
 				}
 			}
 		}
-		System.out.println("sum2 = " + sum);
-		double hasil = sum/total;
-		System.out.println("hasil = " + hasil);
+		//System.out.println("sum2 = " + sum);
+		//double hasil = sum/total;
+		//System.out.println("hasil = " + hasil);
 		return (sum/total * 100);
 	}
 
