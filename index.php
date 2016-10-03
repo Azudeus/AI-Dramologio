@@ -110,8 +110,8 @@
 						echo $arrayOfAct[count($arrayOfAct)-2];
 						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
-						unset($arrayOfAct[count($arrayOfAct)-1]);
-						unset($arrayOfAct[count($arrayOfAct)-2]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 						
 						echo "<form method='post' >";
@@ -134,8 +134,8 @@
 						echo $arrayOfAct[count($arrayOfAct)-2];
 						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
-						unset($arrayOfAct[count($arrayOfAct)-1]);
-						unset($arrayOfAct[count($arrayOfAct)-2]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 
 					}
@@ -150,8 +150,8 @@
 						echo $arrayOfAct[count($arrayOfAct)-2];
 						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
-						unset($arrayOfAct[count($arrayOfAct)-1]);
-						unset($arrayOfAct[count($arrayOfAct)-2]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 					}
 				?>
