@@ -76,6 +76,7 @@ public class Hillclimbing extends CSP{
 			i++;
 		}
 		printAllActivity();
+		System.out.println("Jumlah bentrok: " + violation);
 	}
 
     public static void main(String[] args) {

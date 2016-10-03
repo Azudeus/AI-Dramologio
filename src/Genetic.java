@@ -126,5 +126,6 @@ public class Genetic {
         Genetic genetic = new Genetic(popSize,step,activities,classrooms);
         CSP answer = genetic.run();
         answer.printAllActivity();
+		System.out.println("Jumlah Bentrok: ");
     }
 }

@@ -108,7 +108,8 @@ public class SimulatedAnnealing extends CSP{
 			//System.out.println ("Violation" + countViolation());
 		}
 		printAllActivity();
-		System.out.println("Program succesfully run, VIOLATION LAST = "+ countViolation());	
+		System.out.println("Jumlah bentrok: " + violation);
+	
 	}
 
     public static void main(String[] args) {
