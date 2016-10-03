@@ -122,12 +122,26 @@ public class Genetic {
     }
 
     public static void main(String args[]) {
+<<<<<<< HEAD
         try{
 			int step = Integer.parseInt(args[1]);
 			int popSize = Integer.parseInt(args[2]);
 			FileReader fr = new FileReader(args[0]);
 			ArrayList<Classroom> classrooms = fr.parseArrayClassroom();
 			ArrayList<Activity> activities = fr.parseArrayActivity();
+=======
+        int step = Integer.parseInt(args[1]);
+        int popSize = Integer.parseInt(args[2]);
+        FileReader fr = new FileReader(args[0]);
+        ArrayList<Classroom> classrooms = fr.parseArrayClassroom();
+        ArrayList<Activity> activities = fr.parseArrayActivity();
+
+        Genetic genetic = new Genetic(popSize,step,activities,classrooms);
+        CSP answer = genetic.run();
+        answer.printAllActivity();
+		System.out.println("Jumlah Bentrok: " + answer.countViolation());
+		System.out.println("Persentasi keefektifan " + answer.percentage() );
+>>>>>>> 99d6f74cfb865ddeacf6e8c66762f89990aef6e5
 	
 			Genetic genetic = new Genetic(popSize,step,activities,classrooms);
 			CSP answer = genetic.run();
