@@ -89,7 +89,8 @@ public class Hillclimbing extends CSP{
 	  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
 	        new Hillclimbing(activities,classrooms,Integer.parseInt(args[1])).run();
     	} catch (ArrayIndexOutOfBoundsException e){
-    		System.out.println("Input not enough, please put filename and how many steps do you want");
+    		System.out.println("Input not complete");
+			System.out.println("Algorithm Terminated");
     		System.exit(0);
     	}
     }

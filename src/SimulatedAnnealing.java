@@ -114,7 +114,8 @@ public class SimulatedAnnealing extends CSP{
 	  		double r = Double.parseDouble(args[3]);
 	        new SimulatedAnnealing(activities,classrooms,Integer.parseInt(args[1]),temper,r).run();
     	} catch (ArrayIndexOutOfBoundsException e){
-    		System.out.println("Input not enough, please put filename and how many steps do you want");
+    		System.out.println("Input not complete");
+    		System.out.println("Algorithm Terminated");
     		System.exit(0);
     	}
     }

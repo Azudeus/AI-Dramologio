@@ -110,24 +110,34 @@ public class Genetic {
 
     public CSP run() {
         int i = 0;
+        CSP best = findBestCSP();
         while (newGeneration() > 0 && i < steps) {
+            CSP temp = findBestCSP();
+            best = temp.countViolation() > best.countViolation() ? temp : best;
             i++;
         }
-        return findBestCSP();
+        CSP temp = findBestCSP();
+        best = temp.countViolation() > best.countViolation() ? temp : best;
+        return best;
     }
 
     public static void main(String args[]) {
-        int step = Integer.parseInt(args[1]);
-        int popSize = Integer.parseInt(args[2]);
-        FileReader fr = new FileReader(args[0]);
-        ArrayList<Classroom> classrooms = fr.parseArrayClassroom();
-        ArrayList<Activity> activities = fr.parseArrayActivity();
-
-        Genetic genetic = new Genetic(popSize,step,activities,classrooms);
-        CSP answer = genetic.run();
-        answer.printAllActivity();
-		System.out.println("Jumlah Bentrok: ");
-		System.out.println("Persentasi keefektifan " );
+        try{
+			int step = Integer.parseInt(args[1]);
+			int popSize = Integer.parseInt(args[2]);
+			FileReader fr = new FileReader(args[0]);
+			ArrayList<Classroom> classrooms = fr.parseArrayClassroom();
+			ArrayList<Activity> activities = fr.parseArrayActivity();
 	
+			Genetic genetic = new Genetic(popSize,step,activities,classrooms);
+			CSP answer = genetic.run();
+			answer.printAllActivity();
+			System.out.println("Jumlah Bentrok: " + answer.countViolation());
+			System.out.println("Persentasi keefektifan " + answer.percentage() );
+		} catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("Input not complete");
+    		System.out.println("Algorithm Terminated");
+    		System.exit(0);
+		}
     }
 }
