@@ -11,6 +11,7 @@ public class Activity {
 	private String tempRoom;
 	private int start;
 	private int tempDay;
+	private boolean flag;
 
 	public Activity(String name, boolean[] day, int lmtStart, int lmtFinish, int duration, String room) {
 		this.name = name;
@@ -25,6 +26,7 @@ public class Activity {
 		this.start = 0;
 		this.tempDay = 0;
 		this.tempRoom = "";
+		this.flag = false;
 	}
 
 	public Activity(Activity activity) {
@@ -59,6 +61,10 @@ public class Activity {
 	public void setTempDay(int x) {
 		tempDay = x;
 	}
+
+	public void setFlag(boolean x) {
+		flag = x;
+	} 
 
 	public String getName() {
 		return name;
@@ -96,6 +102,10 @@ public class Activity {
 		return tempDay;
 	}
 
+	public boolean getFlag() {
+		return flag;
+	}
+
 	public String toString() {
 		return  this.getName() + " " +
 				this.getTempDay() + " " +
@@ -103,5 +113,6 @@ public class Activity {
 				this.getDuration() + " " +
 				this.getTempRoom();
 	}
+
 }
 

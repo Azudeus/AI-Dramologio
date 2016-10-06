@@ -79,6 +79,8 @@ public class Hillclimbing extends CSP{
 		System.out.println("Jumlah bentrok: " + violation);
 		double persen = percentage();
 		System.out.println("Persentase: " + persen + " %");
+		System.out.println("Unplaceables : ");
+		printAllUnplaceable();
 	}
 
     public static void main(String[] args) {
