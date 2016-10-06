@@ -67,6 +67,26 @@
 					echo "&nbsp ";
 				}
 			}
+
+			function manualMove(){
+				echo "<p>";
+				echo "Matkul &nbsp &nbsp" ;
+				echo "<select class='stepnpop'><option value='IF3130'>IF3130</option><option value='IF2130'>IF2130</option></select>";
+				echo "&nbsp &nbsp Ruang &nbsp &nbsp" ;
+				echo "<select class='stepnpop'><option value='9602'>9602</option><option value='9601'>9601</option></select>";
+				echo "&nbsp &nbsp Hari &nbsp &nbsp" ;
+				echo "<select class='stepnpop'><option value='Senin'>Senin</option><option value='Selasa'>Selasa</option></select>";
+				echo "&nbsp &nbsp Jam &nbsp &nbsp" ;
+				echo "<select class='stepnpop'><option value='7'>7</option><option value='8'>8</option></select>";
+				echo "</p>";
+				echo "Pindah ke : <br><br>";
+				echo "<p>";
+				echo "Hari &nbsp &nbsp " ;
+				echo "<select class='stepnpop'><option value='Senin'>Senin</option><option value='Selasa'>Selasa</option></select>";
+				echo "&nbsp &nbsp Jam &nbsp &nbsp " ;
+				echo "<select class='stepnpop'><option value='7'>7</option><option value='8'>8</option></select><br>";
+				echo "</p>";
+			}
 		?>
 
 		<!-- Deskripsi kelompok : pinggir -->
@@ -112,8 +132,10 @@
 						unset($arrayOfAct[count($arrayOfAct)-1]);
 						unset($arrayOfAct[count($arrayOfAct)-2]);
 						createTable($arrayOfAct);
-						
-						echo "<form method='post' >";
+						echo"<br>";
+						manualMove();
+						echo "<br><form method='post' >";
+						echo whiteSpacing(25);
 						echo "<input type='submit' name='move' value='Move' style='margin-left: 120px'/></form>";
 						
 					}
