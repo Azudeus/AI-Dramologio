@@ -10,11 +10,11 @@ public class SimulatedAnnealing extends CSP{
 	private double temperature;
 	private double r;
 
-	SimulatedAnnealing(ArrayList<Activity> act, ArrayList<Classroom> cls, int steps) {
+	SimulatedAnnealing(ArrayList<Activity> act, ArrayList<Classroom> cls, int steps, double temperature, double r) {
 		super(act,cls);
 		this.steps = steps;
-		temperature = 100;
-		r = 0.97;
+		this.temperature = temperature;
+		this.r = r;
 	}
 
 	public Activity selectStep() {
@@ -72,30 +72,22 @@ public class SimulatedAnnealing extends CSP{
 		double probability;
 		double comp;
 		int i = 0;
-		//System.out.println("violation = " + violation);
-		//System.out.println("steps = " + steps);
+		
 		while ((violation!=0) && (i < steps)) {
-			//System.out.println("masuk while");
 			saveState = selectStep();
 			tempRoom = saveState.getTempRoom();
 			tempDay = saveState.getTempDay();
 			tempStart = saveState.getStart();
 			setRandomActivity(saveState);
 			checkViolation();
-			//System.out.println(violation);
-			//System.out.println(countViolation());
 			if (countViolation() <= violation) {
-				//System.out.println("masuk");
 				violation = countViolation();
 			} else {
-				//System.out.println("masuk2");
 				delta = violation - countViolation();
 				exp = delta / temperature;
 				probability = Math.exp(exp);
-				//System.out.println(probability);
 				Random rand = new Random();
 				comp = rand.nextFloat();
-				//System.out.println(comp);
 				if (probability >= comp){
 					violation = countViolation();
 				}
@@ -105,7 +97,6 @@ public class SimulatedAnnealing extends CSP{
 			}
 			temperature = temperature * r;
 			i++;
-			//System.out.println ("Violation" + countViolation());
 		}
 		printAllActivity();
 		System.out.println("Jumlah bentrok: " + violation);
@@ -119,9 +110,12 @@ public class SimulatedAnnealing extends CSP{
 	  		FileReader fileReader = new FileReader(args[0]);
 	  		ArrayList<Classroom> classrooms = fileReader.parseArrayClassroom();
 	  		ArrayList<Activity> activities = fileReader.parseArrayActivity();
-	        new SimulatedAnnealing(activities,classrooms,Integer.parseInt(args[1])).run();
+	  		double temper = Double.parseDouble(args[2]);
+	  		double r = Double.parseDouble(args[3]);
+	        new SimulatedAnnealing(activities,classrooms,Integer.parseInt(args[1]),temper,r).run();
     	} catch (ArrayIndexOutOfBoundsException e){
-    		System.out.println("Input not enough, please put filename and how many steps do you want");
+    		System.out.println("Input not complete");
+    		System.out.println("Algorithm Terminated");
     		System.exit(0);
     	}
     }

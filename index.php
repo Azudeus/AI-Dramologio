@@ -112,7 +112,7 @@
 					<?php whiteSpacing(27) ?>
 					Steps <?php whiteSpacing(2) ?>
 					<input type="number" class="stepnpop" name="steps"/>
-					<?php whiteSpacing(2) ?>Population <?php whiteSpacing(2) ?>
+					<?php whiteSpacing(2) ?>Population/Temperature <?php whiteSpacing(2) ?>
 					<input type="number" class="stepnpop" name="population" />
 				</form>
 				</div>
@@ -127,10 +127,11 @@
 						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-						echo $arrayOfAct[count($arrayOfAct)-2]. " ";
+						echo $arrayOfAct[count($arrayOfAct)-2];
+						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
-						unset($arrayOfAct[count($arrayOfAct)-1]);
-						unset($arrayOfAct[count($arrayOfAct)-2]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 						echo"<br>";
 						manualMove();
@@ -152,10 +153,11 @@
 						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-						echo $arrayOfAct[count($arrayOfAct)-2]." ";
+						echo $arrayOfAct[count($arrayOfAct)-2];
+						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
-						unset($arrayOfAct[count($arrayOfAct)-1]);
-						unset($arrayOfAct[count($arrayOfAct)-2]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 
 					}
@@ -163,14 +165,15 @@
 					//pilihan algoritma = simulated annealing
 					if(isset($_POST["sa"])){
 						//eksekusi java - push ke array
-						exec("java -cp ".getcwd()."/src SimulatedAnnealing Testcase.txt ".$_POST['steps'],$arrayOfAct);
+						exec("java -cp ".getcwd()."/src SimulatedAnnealing Testcase.txt ".$_POST['steps']." ".$_POST['population']." 0.97",$arrayOfAct);
 						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
-						echo $arrayOfAct[count($arrayOfAct)-2]." ";
+						echo $arrayOfAct[count($arrayOfAct)-2];
+						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
-						unset($arrayOfAct[count($arrayOfAct)-1]);
-						unset($arrayOfAct[count($arrayOfAct)-2]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
+						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 					}
 				?>
