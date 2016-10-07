@@ -102,8 +102,8 @@ public class SimulatedAnnealing extends CSP{
 		System.out.println("Jumlah bentrok: " + violation);
 		double persen = percentage();
 		System.out.println("Persentase: " + persen + " %");
-		System.out.println("Unplaceables :");
-        printAllUnplaceable();
+//		System.out.println("Unplaceables :");
+//        printAllUnplaceable();
 
 
 	
