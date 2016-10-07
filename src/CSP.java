@@ -235,16 +235,18 @@ public class CSP {
 		int actLength = arrAct.size();
 		for (int i=0; i<actLength ; i++) {
 			for(int j=i+1 ; j<actLength ; j++) {
-				if (Objects.equals(arrAct.get(i).getTempRoom(), arrAct.get(j).getTempRoom()) && (arrAct.get(i).getTempDay() == arrAct.get(j).getTempDay())) {
-					if ((arrAct.get(i).getStart() > arrAct.get(j).getStart()) && ((arrAct.get(j).getStart()+arrAct.get(j).getDuration()) > arrAct.get(i).getStart())) {
-						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
-						arrError.add(err);
-					} else if ((arrAct.get(j).getStart() > arrAct.get(i).getStart()) && ((arrAct.get(i).getStart()+arrAct.get(i).getDuration()) > arrAct.get(j).getStart())) {
-						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
-						arrError.add(err);
-					} else if (arrAct.get(i).getStart() == arrAct.get(j).getStart()) {
-						PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
-						arrError.add(err);	
+				if (!arrAct.get(i).getFlag()){
+					if (Objects.equals(arrAct.get(i).getTempRoom(), arrAct.get(j).getTempRoom()) && (arrAct.get(i).getTempDay() == arrAct.get(j).getTempDay())) {
+						if ((arrAct.get(i).getStart() > arrAct.get(j).getStart()) && ((arrAct.get(j).getStart()+arrAct.get(j).getDuration()) > arrAct.get(i).getStart())) {
+							PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
+							arrError.add(err);
+						} else if ((arrAct.get(j).getStart() > arrAct.get(i).getStart()) && ((arrAct.get(i).getStart()+arrAct.get(i).getDuration()) > arrAct.get(j).getStart())) {
+							PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
+							arrError.add(err);
+						} else if (arrAct.get(i).getStart() == arrAct.get(j).getStart()) {
+							PairActivity err = new PairActivity(arrAct.get(i),arrAct.get(j));
+							arrError.add(err);	
+						}
 					}
 				}
 			}

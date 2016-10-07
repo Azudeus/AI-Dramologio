@@ -133,9 +133,9 @@ public class Genetic {
 			CSP answer = genetic.run();
 			answer.printAllActivity();
 			System.out.println("Jumlah Bentrok: " + answer.countViolation());
-			System.out.println("Persentasi keefektifan " + answer.percentage() );
-//            System.out.println("Unplaceables : ");
-  //          answer.printAllUnplaceable();
+			System.out.println("Persentasi keefektifan " + answer.percentage() + "%");
+            System.out.println("Unplaceables :");
+            answer.printAllUnplaceable();
 
 		} catch (ArrayIndexOutOfBoundsException e){
 			System.out.println("Input not complete");
