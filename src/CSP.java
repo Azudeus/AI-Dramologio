@@ -8,6 +8,7 @@ public class CSP {
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
 	protected ArrayList<Activity> unplaceables;
+	protected int[][][] mat = new int[100][100][100];
 
 	public static final int NOT_FOUND = -999;
 
@@ -16,6 +17,13 @@ public class CSP {
 		arrClass = new ArrayList<Classroom>();
 		arrError = new ArrayList<PairActivity>();
 		unplaceables = new ArrayList<Activity>();
+		for (int i = 0; i < 100; i++){
+			for (int j = 0; j < 100; j++){
+				for (int k = 0; k < 100; k++){
+					mat[i][j][k] = 0;
+				}
+			}
+		}
 	}
 
 	public CSP(ArrayList<Activity> activities, ArrayList<Classroom> classrooms) {
@@ -265,10 +273,47 @@ public class CSP {
 		}		
 	}
 
+	public int findIndexClass(int i){
+		int classLength = arrClass.size();
+		int hasil = 99;
+		for (int j = 0; j < classLength; j++){
+			if (arrAct.get(i).getTempRoom() == arrClass.get(j).getName()){
+				hasil = j;
+			}
+		}
+		return hasil;
+	}
+
 	public double percentage(){
+		int actLength = arrAct.size();
+		double sum = 0;
+		int idxClass;
+		int idxDay;
+		int idxStart;
+		int idxStop;
+		for (int i = 0; i < actLength; i++){
+			idxClass = findIndexClass(i);
+			idxDay = arrAct.get(i).getTempDay();
+			idxStart = arrAct.get(i).getStart();
+			idxStop = idxStart + arrAct.get(i).getDuration() - 1;
+			for (int j = idxStart; j < idxStop; j++){
+				mat[idxClass][idxDay][j] = 1;
+			}
+		}
+
+		for (int i = 0; i < 100; i++){
+			for (int j = 0; j < 100; j++){
+				for (int k = 0; k < 100; k++){
+					sum = sum + mat[i][j][k];
+				}
+			}
+		}
+
+
+		int errLength = arrError.size();
+
 		int classLength = arrClass.size();
 		double day = 0;
-		double sum = 0;
 		double total = 0;
 		//HITUNG TOTAL JAM YANG AVAILABLE
 		for (int i = 0; i < classLength; i++){
@@ -280,42 +325,7 @@ public class CSP {
 			total = total + (day * (arrClass.get(i).getClosedTime() - arrClass.get(i).getOpenTime()));
 			day = 0;
 		}
-		//HITUNG TOTAL JAM YANG DIGUNAKAN TANPA BENTROK
-		int actLength = arrAct.size();
-		for (int i = 0; i < actLength; i++){
-			sum = sum + arrAct.get(i).getDuration();
-		}
-		//HITUNG TOTAL JAM JIKA BENTROK
-		int violation = countViolation();
-		for (int i = 0; i < violation; i++){
-			//JIKA MULAINYA BERSAMAAN
-			if (arrError.get(i).getFirst().getStart() == arrError.get(i).getSecond().getStart()){
-				if (arrError.get(i).getFirst().getDuration() > arrError.get(i).getSecond().getDuration()){
-					sum = sum - arrError.get(i).getSecond().getDuration();
-				}
-				else{
-					sum = sum - arrError.get(i).getFirst().getDuration();
-				}
-			}
-			//JIKA AKTIVITAS 2 MULAI DULUAN
-			else if (arrError.get(i).getFirst().getStart() > arrError.get(i).getSecond().getStart()){
-				if (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() <= arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration()){
-					sum = sum - arrError.get(i).getFirst().getDuration();
-				}
-				else{
-					sum = sum - (arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration() - arrError.get(i).getFirst().getStart());	
-				}
-			}
-			//JIKA AKTIVITAS 1 MULAI DULUAN
-			else{
-				if (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() >= arrError.get(i).getSecond().getStart()+arrError.get(i).getSecond().getDuration()){
-					sum = sum - arrError.get(i).getSecond().getDuration();
-				}
-				else{
-					sum = sum - (arrError.get(i).getFirst().getStart()+arrError.get(i).getFirst().getDuration() - arrError.get(i).getSecond().getStart());	
-				}
-			}
-		}
+
 		return (sum/total * 100);
 	}
 
