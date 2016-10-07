@@ -89,7 +89,7 @@ public class Genetic {
 
     public int newGeneration() {
         ArrayList<CSP> newPopulation = new ArrayList<>();
-        int minimumViolation = 10000;
+        int minimumViolation = 100000;
         for (int i = 0; i < populationSize; i++) {
             newPopulation.add(breed());
             minimumViolation = Math.min(newPopulation.get(i).countViolation(), minimumViolation);

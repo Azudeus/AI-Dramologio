@@ -42,6 +42,7 @@ public class Activity {
 		this.start = activity.start;
 		this.tempDay = activity.tempDay;
 		this.tempRoom = activity.tempRoom;
+		this.flag = activity.flag;
 	}
 
 	public void setRandomStart(int start, int finish) {
