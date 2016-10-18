@@ -109,11 +109,11 @@
 					<input type="submit" name="genetic" value="Genetic" style="margin-left: 120px"/>
 					<input type="submit" name="hc" value="Hill Climbing"/>
 					<input type="submit" name="sa" value="Simulated Annealing"/><br><br>
-					<?php whiteSpacing(27) ?>
+					<?php whiteSpacing(20) ?>
 					Steps <?php whiteSpacing(2) ?>
 					<input type="number" class="stepnpop" name="steps"/>
 					<?php whiteSpacing(2) ?>Population/Temperature <?php whiteSpacing(2) ?>
-					<input type="number" class="stepnpop" name="population" />
+					<input type="number" class="stepnpop" name="population" /><br><br>
 				</form>
 				</div>
 				<br><br>
@@ -127,6 +127,7 @@
 						for ($i=0; $i < count($arrayOfAct)-2; $i++){
 							$arrayOfAct[$i] = preg_split("/[\s,]+/", $arrayOfAct[$i]);
 						}
+
 						echo $arrayOfAct[count($arrayOfAct)-2];
 						echo "<br>";
 						echo $arrayOfAct[count($arrayOfAct)-1];
@@ -134,11 +135,12 @@
 						//unset($arrayOfAct[count($arrayOfAct)-1]);
 						createTable($arrayOfAct);
 						echo"<br>";
+						/*
 						manualMove();
 						echo "<br><form method='post' >";
 						echo whiteSpacing(25);
 						echo "<input type='submit' name='move' value='Move' style='margin-left: 120px'/></form>";
-						
+						*/
 					}
 
 					if(isset($_POST["move"])){

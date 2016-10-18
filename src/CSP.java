@@ -8,7 +8,7 @@ public class CSP {
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
 	protected ArrayList<Activity> unplaceables;
-	protected int[][][] mat = new int[100][100][100];
+	protected int[][][] mat = new int[30][7][30];
 
 	public static final int NOT_FOUND = -999;
 
@@ -18,7 +18,7 @@ public class CSP {
 		arrError = new ArrayList<PairActivity>();
 		unplaceables = new ArrayList<Activity>();
 		for (int i = 0; i < 100; i++){
-			for (int j = 0; j < 100; j++){
+			for (int j = 0; j < 7; j++){
 				for (int k = 0; k < 100; k++){
 					mat[i][j][k] = 0;
 				}
@@ -297,14 +297,14 @@ public class CSP {
 			idxClass = findIndexClass(i);
 			idxDay = arrAct.get(i).getTempDay();
 			idxStart = arrAct.get(i).getStart();
-			idxStop = idxStart + arrAct.get(i).getDuration() - 1;
+			idxStop = idxStart + arrAct.get(i).getDuration();
 			for (int j = idxStart; j < idxStop; j++){
 				mat[idxClass][idxDay][j] = 1;
 			}
 		}
 
 		for (int i = 0; i < 100; i++){
-			for (int j = 0; j < 100; j++){
+			for (int j = 0; j < 7; j++){
 				for (int k = 0; k < 100; k++){
 					sum = sum + mat[i][j][k];
 				}

@@ -1771,11 +1771,9 @@
 		border-radius: 0.35em;
 		border: solid 2px transparent;
 		color: inherit;
-		display: block;
 		outline: 0;
 		padding: 0 0.75em;
 		text-decoration: none;
-		width: 100%;
 	}
 
 		input[type="text"]:invalid,
@@ -2280,6 +2278,15 @@
 
 /* Button */
 
+	.stepnpop {
+			color: #b2b2b2 ;
+			background: #f7f7f7;
+			border-radius: 0.35em;
+			border: solid 2px transparent;
+			padding-left: 10px ;
+			width: 120px ;
+		}
+
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
@@ -2400,15 +2407,6 @@
 			border-color: #e7e7e7 !important;
 			color: #b2b2b2 !important;
 			cursor: default;
-		}
-
-		.stepnpop {
-			color: #b2b2b2 ;
-			background: #f7f7f7;
-			border-radius: 0.35em;
-			border: solid 2px transparent;
-			padding-left: 10px ;
-			width: 120px ;
 		}
 
 /* Work Item */
