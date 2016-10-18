@@ -8,7 +8,7 @@ public class CSP {
 	protected ArrayList<Classroom> arrClass;
 	protected ArrayList<PairActivity> arrError;
 	protected ArrayList<Activity> unplaceables;
-	protected int[][][] mat = new int[30][7][30];
+	protected int[][][] mat = new int[100][7][100];
 
 	public static final int NOT_FOUND = -999;
 
@@ -254,7 +254,7 @@ public class CSP {
 	}
 
 	public int countViolation() {
-		return arrError.size();
+		return arrError.size()+unplaceables.size();
 	}
 
 	public void printAllActivity() {
